@@ -1,21 +1,2382 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EVM Testnet Token Lab | ERC-20 Smart Contract Guide</title>
-    <meta name="description" content="Educational guide and smart contract studio for developing, compiling, and deploying standard OpenZeppelin ERC-20 tokens on EVM testnets." />
-    <meta property="og:title" content="EVM Testnet Token Lab | ERC-20 Smart Contract Guide" />
-    <meta property="og:description" content="Educational guide and smart contract studio for developing, compiling, and deploying standard OpenZeppelin ERC-20 tokens on EVM testnets." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
+  <!-- =====================================================================
+       EDIT BUSINESS INFO: Change Title & Meta Description for SEO
+       Replace "Summit Ridge Roofing" and city/state with your actual company details
+       ===================================================================== -->
+  <title>Summit Ridge Roofing | Licensed Residential &amp; Commercial Roofing Contractor</title>
+  <meta name="description" content="Summit Ridge Roofing provides licensed, insured roof repair, full roof replacement, storm damage restoration, and free 21-point inspections. Call (555) 123-4567 for a free quote." />
+  <meta property="og:title" content="Summit Ridge Roofing | Licensed Residential &amp; Commercial Roofing Contractor" />
+  <meta property="og:description" content="Summit Ridge Roofing is a trusted local roofing contractor offering roof repairs, replacements, storm restoration, and a 10-Year Workmanship Warranty. Call (555) 123-4567." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- MOBILE UPDATE: Added weight 900 & font-display=swap to prevent layout shift when fonts load -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =====================================================================
+       EDIT COLORS: Customize your brand color palette here
+       MOBILE & BOLD UPDATE: Darker navy, brighter safety orange, strictly flat
+       ===================================================================== */
+    :root {
+      --color-navy: #06101E;          /* Deeper high-contrast navy background & headings */
+      --color-navy-light: #0F2138;    /* Secondary flat navy for cards/surfaces */
+      --color-orange: #FF5500;        /* Brighter high-visibility safety orange accent */
+      --color-orange-hover: #DC4600;  /* Darker safety orange for desktop hover */
+      --color-white: #FFFFFF;         /* Pure white surface */
+      --color-gray-bg: #F1F5F9;       /* Crisp light gray section background */
+      --color-gray-border: #CBD5E1;   /* Heavier, higher-contrast card & input border */
+      --color-text-main: #0F172A;     /* High-contrast body text */
+      --color-text-muted: #334155;    /* Darker readable secondary text */
+      --color-success-bg: #ECFDF5;    /* Flat green background for form confirmation */
+      --color-success-text: #065F46;  /* High-contrast green text */
+      --color-error-text: #B91C1C;    /* Accessible red error text */
+
+      /* MOBILE UPDATE: Metric-compatible fallback font stack to prevent layout shift */
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      --shadow-subtle: 0 4px 12px rgba(6, 16, 30, 0.08);
+      --shadow-hover: 0 10px 24px rgba(6, 16, 30, 0.16);
+      --shadow-orange: 0 6px 16px rgba(255, 85, 0, 0.32);
+      --radius-btn: 8px;
+      --radius-card: 12px;
+      --max-width: 1200px;
+      --header-height: 72px;
+    }
+
+    /* Base Reset & Accessibility */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* MOBILE UPDATE: Prevent horizontal scroll on html & body and support 360px screens */
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      overflow-x: hidden;
+      max-width: 100%;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 1rem; /* Minimum 16px body text */
+      color: var(--color-text-main);
+      background-color: var(--color-white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      max-width: 100%;
+      width: 100%;
+      /* MOBILE UPDATE: Reserve space for sticky bottom bar + iOS safe area */
+      padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    }
+
+    @media (min-width: 768px) {
+      body {
+        padding-bottom: 0;
+      }
+    }
+
+    /* MOBILE UPDATE: Respect prefers-reduced-motion by disabling smooth scroll & transitions */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* MOBILE UPDATE: Every section & anchored target gets scroll-margin-top so sticky header never covers headings */
+    section,
+    [id] {
+      scroll-margin-top: 84px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Visible Keyboard Focus State for Accessibility */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid var(--color-orange);
+      outline-offset: 2px;
+    }
+
+    /* Skip Link for Screen Readers */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      background-color: var(--color-orange);
+      color: var(--color-white);
+      padding: 12px 18px;
+      min-height: 48px;
+      border-radius: var(--radius-btn);
+      font-weight: 800;
+      z-index: 1000;
+    }
+
+    .skip-link:focus {
+      top: 16px;
+    }
+
+    /* MOBILE UPDATE: 360px-first container with safe horizontal padding and overflow protection */
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    @media (min-width: 640px) {
+      .container {
+        padding: 0 24px;
+      }
+    }
+
+    section {
+      padding: 60px 0;
+      border-bottom: 3px solid var(--color-gray-border);
+    }
+
+    @media (min-width: 768px) {
+      section {
+        padding: 88px 0;
+      }
+    }
+
+    /* BOLD UPDATE: Uppercase Kicker + Extra-Bold Section Title + Thick Orange Divider */
+    .section-header {
+      max-width: 680px;
+      margin: 0 auto 44px;
+      text-align: center;
+    }
+
+    .section-kicker {
+      display: inline-block;
+      font-size: 0.875rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-orange);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(1.875rem, 5vw, 2.75rem);
+      font-weight: 900;
+      color: var(--color-navy);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      text-wrap: balance;
+    }
+
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 64px;
+      height: 3px;
+      background-color: var(--color-orange);
+      margin: 14px auto 0;
+    }
+
+    .section-subtitle {
+      font-size: 1.0625rem;
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    /* MOBILE & BOLD UPDATE: Minimum 48px tall touch targets, full-width on mobile, bold shadow */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
+      font-size: 1.0625rem;
+      font-weight: 800;
+      min-height: 52px;
+      padding: 12px 24px;
+      border-radius: var(--radius-btn);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+      white-space: nowrap;
+      text-align: center;
+      width: 100%;
+    }
+
+    @media (min-width: 640px) {
+      .btn {
+        width: auto;
+      }
+    }
+
+    .btn-primary {
+      background-color: var(--color-orange);
+      color: var(--color-white);
+      box-shadow: var(--shadow-orange);
+    }
+
+    .btn-outline-light {
+      background-color: transparent;
+      color: var(--color-white);
+      border-color: var(--color-white);
+    }
+
+    /* MOBILE UPDATE: Hover effects wrapped in @media (hover: hover) so touch taps never jump */
+    @media (hover: hover) and (pointer: fine) {
+      .btn-primary:hover {
+        background-color: var(--color-orange-hover);
+        transform: translateY(-1px);
+      }
+
+      .btn-outline-light:hover {
+        background-color: var(--color-white);
+        color: var(--color-navy);
+      }
+    }
+
+    /* =====================================================================
+       1. STICKY HEADER
+       MOBILE UPDATE: max-width: 100vw, fixed 72px height, transform: translateZ(0),
+       flex row with 1.125rem logo on left, compact Call + 44x44 menu icon on right
+       ===================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      width: 100%;
+      max-width: 100vw;
+      height: var(--header-height);
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-bottom: 3px solid var(--color-orange);
+      box-shadow: var(--shadow-subtle);
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      will-change: transform;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      height: 100%;
+      width: 100%;
+    }
+
+    .brand-logo {
+      font-size: clamp(0.9375rem, 4.2vw, 1.125rem);
+      font-weight: 900;
+      color: var(--color-white);
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      flex-shrink: 0;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .brand-logo {
+        font-size: 1.4375rem;
+      }
+    }
+
+    .brand-logo span {
+      color: var(--color-orange);
+    }
+
+    .primary-nav {
+      display: none;
+    }
+
+    @media (min-width: 1024px) {
+      .primary-nav {
+        display: block;
+      }
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #F1F5F9;
+      padding: 0 4px;
+      border-bottom: 3px solid transparent;
+      transition: color 0.15s ease, border-color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .nav-links a:hover {
+        color: var(--color-white);
+        border-bottom-color: var(--color-orange);
+      }
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .header-call-btn {
+      width: auto;
+      flex-shrink: 0;
+      min-height: 44px;
+      padding: 8px 12px;
+      font-size: 0.9375rem;
+      gap: 0;
+    }
+
+    /* MOBILE UPDATE: Hide phone number text under 768px so header button reads "📞 Call" */
+    .call-number-extra {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .header-call-btn {
+        min-height: 48px;
+        padding: 10px 20px;
+        font-size: 1rem;
+      }
+      .call-number-extra {
+        display: inline;
+      }
+    }
+
+    .mobile-menu-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background-color: var(--color-navy-light);
+      color: var(--color-white);
+      border: 2px solid #2E476B;
+      border-radius: var(--radius-btn);
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0;
+      font-size: 1.25rem;
+      line-height: 1;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    @media (min-width: 1024px) {
+      .mobile-menu-btn {
+        display: none;
+      }
+    }
+
+    /* MOBILE UPDATE: Absolute overlay menu with opacity/transform so opening never shifts page content */
+    .mobile-nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: var(--color-navy-light);
+      border-bottom: 3px solid var(--color-orange);
+      padding: 12px 16px 20px;
+      box-shadow: var(--shadow-hover);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+      pointer-events: none;
+    }
+
+    .mobile-nav.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .mobile-nav ul {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .mobile-nav a {
+      display: flex;
+      align-items: center;
+      min-height: 48px;
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--color-white);
+      padding: 8px 12px;
+      border-radius: var(--radius-btn);
+      background-color: var(--color-navy);
+      border: 1px solid #294366;
+    }
+
+    /* =====================================================================
+       2. HERO SECTION
+       MOBILE & BOLD UPDATE: min-height: calc(100svh - 72px) to prevent iOS Safari
+       toolbar jump, clamp(2.5rem, 9vw, 4rem) weight 900 headline, full-width CTAs
+       ===================================================================== */
+    .hero {
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      min-height: calc(100svh - var(--header-height));
+      display: flex;
+      align-items: center;
+      padding: 48px 0 64px;
+      border-bottom: 3px solid var(--color-orange);
+    }
+
+    @media (min-width: 1024px) {
+      .hero {
+        padding: 80px 0 96px;
+      }
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 7fr 5fr;
+        gap: 48px;
+      }
+    }
+
+    .hero-kicker {
+      display: inline-block;
+      color: var(--color-orange);
+      font-size: 0.875rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+
+    .hero-headline {
+      font-size: clamp(2.5rem, 9vw, 4rem);
+      font-weight: 900;
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      margin-bottom: 20px;
+      text-wrap: balance;
+    }
+
+    .hero-subtext {
+      font-size: 1.0625rem;
+      color: #E2E8F0;
+      max-width: 60ch;
+      margin-bottom: 28px;
+    }
+
+    @media (min-width: 640px) {
+      .hero-subtext {
+        font-size: 1.125rem;
+      }
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    @media (min-width: 640px) {
+      .hero-cta-group {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+    }
+
+    .hero-cta-group .btn {
+      min-height: 54px;
+      padding: 14px 28px;
+      font-size: 1.0625rem;
+    }
+
+    .trust-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 24px;
+      padding-top: 24px;
+      border-top: 2px solid var(--color-navy-light);
+    }
+
+    .trust-badge-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--color-white);
+    }
+
+    .hero-visual-card {
+      background-color: var(--color-navy-light);
+      border: 2px solid #294366;
+      border-top: 3px solid var(--color-orange);
+      border-radius: var(--radius-card);
+      padding: 20px;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    @media (min-width: 640px) {
+      .hero-visual-card {
+        padding: 28px;
+      }
+    }
+
+    /* MOBILE UPDATE: Fixed aspect-ratio 16/10 on hero visual block to prevent layout shift */
+    .hero-visual-photo {
+      background-color: #162C46;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      border: 2px solid #2E476B;
+      position: relative;
+      aspect-ratio: 16 / 10;
+      width: 100%;
+    }
+
+    .hero-visual-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-photo-caption {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      text-align: center;
+      background-color: var(--color-navy-light);
+    }
+
+    .hero-photo-caption .emoji-large {
+      font-size: 3rem;
+      margin-bottom: 8px;
+    }
+
+    .hero-stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      text-align: center;
+    }
+
+    .hero-stat {
+      background-color: var(--color-navy);
+      padding: 14px 6px;
+      border-radius: 8px;
+      border: 2px solid #294366;
+    }
+
+    /* BOLD UPDATE: Larger, heavier stat numbers */
+    .hero-stat strong {
+      display: block;
+      font-size: clamp(1.25rem, 4vw, 1.625rem);
+      font-weight: 900;
+      color: var(--color-orange);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .hero-stat span {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #E2E8F0;
+      display: block;
+    }
+
+    /* =====================================================================
+       3. SERVICES SECTION (6 Cards)
+       MOBILE & BOLD UPDATE: 1 col phone, 2 col tablet, 3 col desktop,
+       heavier 2px borders + 3px orange top accent, 56px icons, 48px tall links
+       ===================================================================== */
+    .services-section {
+      background-color: var(--color-white);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 640px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .service-card {
+      background-color: var(--color-white);
+      border: 2px solid var(--color-gray-border);
+      border-top: 3px solid var(--color-orange);
+      border-radius: var(--radius-card);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-subtle);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* MOBILE UPDATE: Hover transform strictly limited to pointer devices */
+    @media (hover: hover) and (pointer: fine) {
+      .service-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-hover);
+        border-color: var(--color-orange);
+      }
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background-color: var(--color-gray-bg);
+      border: 2px solid var(--color-gray-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.875rem;
+      margin-bottom: 18px;
+    }
+
+    .service-card h3 {
+      font-size: 1.375rem;
+      font-weight: 900;
+      color: var(--color-navy);
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      margin-bottom: 20px;
+    }
+
+    .service-link {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--color-orange);
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      gap: 6px;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .service-link:hover {
+        color: var(--color-orange-hover);
+        text-decoration: underline;
+      }
+    }
+
+    /* =====================================================================
+       4. WHY CHOOSE US SECTION (4 Short Points with Icons)
+       ===================================================================== */
+    .why-us-section {
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border-bottom: 3px solid var(--color-orange);
+    }
+
+    .why-us-section .section-title {
+      color: var(--color-white);
+    }
+
+    .why-us-section .section-subtitle {
+      color: #E2E8F0;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 640px) {
+      .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .why-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .why-card {
+      background-color: var(--color-navy-light);
+      border: 2px solid #294366;
+      border-top: 3px solid var(--color-orange);
+      border-radius: var(--radius-card);
+      padding: 26px 22px;
+    }
+
+    .why-emoji {
+      font-size: 2.25rem;
+      margin-bottom: 14px;
+      display: inline-block;
+    }
+
+    .why-card h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--color-white);
+      margin-bottom: 8px;
+    }
+
+    .why-card p {
+      font-size: 1rem;
+      color: #E2E8F0;
+    }
+
+    /* =====================================================================
+       5. GALLERY SECTION (6 Before/After Image Blocks)
+       MOBILE UPDATE: Explicit aspect-ratio: 4 / 3 on all photo slots so images
+       never cause layout shift while loading or scrolling
+       ===================================================================== */
+    .gallery-section {
+      background-color: var(--color-gray-bg);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 640px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .gallery-card {
+      background-color: var(--color-white);
+      border: 2px solid var(--color-gray-border);
+      border-top: 3px solid var(--color-orange);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .before-after-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 2px solid var(--color-gray-border);
+    }
+
+    .photo-slot {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .photo-slot.before-slot {
+      background-color: #E2E8F0;
+      color: #1E293B;
+      border-right: 2px solid var(--color-gray-border);
+    }
+
+    .photo-slot.after-slot {
+      background-color: var(--color-navy);
+      color: var(--color-white);
+    }
+
+    .photo-slot img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.15;
+    }
+
+    .photo-slot-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .photo-tag {
+      font-size: 0.75rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .before-slot .photo-tag {
+      color: #334155;
+    }
+
+    .after-slot .photo-tag {
+      color: var(--color-orange);
+    }
+
+    .photo-desc {
+      font-size: 0.875rem;
+      font-weight: 700;
+    }
+
+    .gallery-caption {
+      padding: 20px;
+    }
+
+    .gallery-caption h3 {
+      font-size: 1.125rem;
+      font-weight: 800;
+      color: var(--color-navy);
+      margin-bottom: 6px;
+    }
+
+    .gallery-caption p {
+      font-size: 0.9375rem;
+      color: var(--color-text-muted);
+    }
+
+    /* =====================================================================
+       6. REVIEWS SECTION (3 Testimonials with 5-Star Ratings)
+       MOBILE UPDATE: 1 col phone, 2 col tablet, 3 col desktop
+       ===================================================================== */
+    .reviews-section {
+      background-color: var(--color-white);
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 640px) {
+      .reviews-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .reviews-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .review-card {
+      background-color: var(--color-gray-bg);
+      border: 2px solid var(--color-gray-border);
+      border-top: 3px solid var(--color-orange);
+      border-radius: var(--radius-card);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .review-stars {
+      font-size: 1.25rem;
+      margin-bottom: 14px;
+      letter-spacing: 2px;
+    }
+
+    .review-quote {
+      font-size: 1rem;
+      color: var(--color-text-main);
+      margin-bottom: 20px;
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    .review-author {
+      border-top: 2px solid var(--color-gray-border);
+      padding-top: 14px;
+    }
+
+    .review-author strong {
+      display: block;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--color-navy);
+    }
+
+    .review-author span {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      font-weight: 600;
+    }
+
+    /* =====================================================================
+       7. SERVICE AREAS SECTION
+       MOBILE UPDATE: Single column on phones, 2 on tablets, 4 on desktop
+       ===================================================================== */
+    .areas-section {
+      background-color: var(--color-gray-bg);
+    }
+
+    .areas-box {
+      background-color: var(--color-white);
+      border: 2px solid var(--color-gray-border);
+      border-top: 3px solid var(--color-orange);
+      border-radius: var(--radius-card);
+      padding: 24px 18px;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    @media (min-width: 640px) {
+      .areas-box {
+        padding: 32px;
+      }
+    }
+
+    .areas-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 640px) {
+      .areas-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .areas-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .area-item {
+      display: flex;
+      align-items: center;
+      min-height: 48px;
+      gap: 10px;
+      padding: 12px 16px;
+      background-color: var(--color-gray-bg);
+      border: 1px solid var(--color-gray-border);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-navy);
+    }
+
+    .areas-note {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 1rem;
+      color: var(--color-text-muted);
+    }
+
+    .areas-note a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      padding: 0 4px;
+      color: var(--color-orange);
+      font-weight: 800;
+      text-decoration: underline;
+    }
+
+    /* =====================================================================
+       8. FAQ ACCORDION SECTION (5 Questions)
+       MOBILE UPDATE: Minimum 52px button height & heavier borders
+       ===================================================================== */
+    .faq-section {
+      background-color: var(--color-white);
+    }
+
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .faq-item {
+      border: 2px solid var(--color-gray-border);
+      border-radius: var(--radius-card);
+      background-color: var(--color-white);
+      overflow: hidden;
+    }
+
+    .faq-item.is-open {
+      border-color: var(--color-orange);
+    }
+
+    .faq-trigger {
+      width: 100%;
+      min-height: 56px;
+      background: none;
+      border: none;
+      padding: 18px 20px;
+      text-align: left;
+      font-family: inherit;
+      font-size: 1.0625rem;
+      font-weight: 800;
+      color: var(--color-navy);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .faq-trigger:hover {
+        background-color: var(--color-gray-bg);
+      }
+    }
+
+    .faq-icon {
+      font-size: 1.5rem;
+      color: var(--color-orange);
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 16px 20px 20px;
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      border-top: 2px solid var(--color-gray-border);
+    }
+
+    .faq-item.is-open .faq-answer {
+      display: block;
+    }
+
+    /* =====================================================================
+       9. CONTACT FORM SECTION
+       MOBILE UPDATE: 16px (1rem) font size on all inputs to prevent iOS Safari
+       auto-zoom on focus, 48px+ input height, and full-width submit CTA
+       ===================================================================== */
+    .contact-section {
+      background-color: var(--color-gray-bg);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    @media (min-width: 1024px) {
+      .contact-grid {
+        grid-template-columns: 5fr 7fr;
+        gap: 40px;
+      }
+    }
+
+    .contact-info-box {
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      border: 2px solid #294366;
+      border-top: 3px solid var(--color-orange);
+      border-radius: var(--radius-card);
+      padding: 28px 22px;
+    }
+
+    @media (min-width: 640px) {
+      .contact-info-box {
+        padding: 32px;
+      }
+    }
+
+    .contact-info-box h3 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .contact-info-box p {
+      color: #E2E8F0;
+      font-size: 1rem;
+      margin-bottom: 24px;
+    }
+
+    .contact-detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .contact-detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 1rem;
+    }
+
+    .contact-detail-item strong {
+      display: block;
+      color: var(--color-white);
+      font-weight: 800;
+    }
+
+    .contact-detail-item span {
+      color: #E2E8F0;
+    }
+
+    .contact-detail-item a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      color: var(--color-orange);
+      font-weight: 800;
+      word-break: break-word;
+    }
+
+    .contact-form-card {
+      background-color: var(--color-white);
+      border: 2px solid var(--color-gray-border);
+      border-top: 3px solid var(--color-orange);
+      border-radius: var(--radius-card);
+      padding: 28px 20px;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    @media (min-width: 640px) {
+      .contact-form-card {
+        padding: 32px;
+      }
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .form-grid-two {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 640px) {
+      .form-grid-two {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 0.9375rem;
+      font-weight: 800;
+      color: var(--color-navy);
+    }
+
+    /* MOBILE UPDATE: 16px (1rem) font-size stops iOS auto-zoom; 48px min-height for touch */
+    .form-control {
+      font-family: inherit;
+      font-size: 1rem;
+      min-height: 48px;
+      padding: 12px 14px;
+      border: 2px solid var(--color-gray-border);
+      border-radius: var(--radius-btn);
+      background-color: var(--color-white);
+      color: var(--color-text-main);
+      width: 100%;
+    }
+
+    .form-control.has-error {
+      border-color: var(--color-error-text);
+    }
+
+    .error-msg {
+      font-size: 0.875rem;
+      color: var(--color-error-text);
+      font-weight: 700;
+      display: none;
+    }
+
+    .error-msg.visible {
+      display: block;
+    }
+
+    .form-success-banner {
+      display: none;
+      background-color: var(--color-success-bg);
+      color: var(--color-success-text);
+      border: 2px solid #10B981;
+      border-radius: var(--radius-btn);
+      padding: 20px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.0625rem;
+      margin-top: 16px;
+    }
+
+    .form-success-banner.visible {
+      display: block;
+    }
+
+    /* =====================================================================
+       10. FOOTER SECTION
+       MOBILE UPDATE: 48px touch targets on links & overflow-wrap safety
+       ===================================================================== */
+    .site-footer {
+      background-color: var(--color-navy);
+      color: #E2E8F0;
+      padding: 56px 0 36px;
+      border-top: 3px solid var(--color-orange);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding-bottom: 40px;
+      border-bottom: 2px solid var(--color-navy-light);
+    }
+
+    @media (min-width: 640px) {
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr;
+      }
+    }
+
+    .footer-col h4 {
+      color: var(--color-white);
+      font-size: 1.125rem;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .footer-col p,
+    .footer-col li {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      overflow-wrap: break-word;
+    }
+
+    .footer-col a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      font-weight: 700;
+      color: var(--color-orange);
+    }
+
+    .footer-bottom {
+      padding-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.9375rem;
+      color: #CBD5E1;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .footer-bottom {
+        flex-direction: row;
+        text-align: left;
+      }
+    }
+
+    /* =====================================================================
+       STICKY MOBILE "CALL NOW" BUTTON BAR
+       MOBILE UPDATE: transform: translateZ(0) to prevent scroll flicker,
+       env(safe-area-inset-bottom) for iPhone home indicator, 48px+ tall buttons
+       ===================================================================== */
+    .mobile-sticky-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: var(--color-navy);
+      border-top: 3px solid var(--color-orange);
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+      display: flex;
+      gap: 12px;
+      z-index: 950;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      will-change: transform;
+    }
+
+    .mobile-sticky-bar .btn {
+      flex: 1;
+      min-height: 48px;
+      padding: 12px 14px;
+      font-size: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .mobile-sticky-bar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- =====================================================================
+       1. STICKY HEADER
+       EDIT BUSINESS NAME & PHONE NUMBER BELOW
+       ===================================================================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <!-- EDIT BUSINESS NAME: Summit Ridge Roofing (replace with your company name if needed) -->
+      <a href="#" class="brand-logo" aria-label="Summit Ridge Roofing Home">
+        Summit&nbsp;<span>Ridge</span>&nbsp;Roofing
+      </a>
+
+      <!-- Primary Navigation Links -->
+      <nav class="primary-nav" aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#areas">Areas</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- EDIT PHONE NUMBER: Update tel:5551234567 and display text -->
+      <!-- MOBILE UPDATE: Shows "📞 Call" under 768px; hides phone number text in a span with display: none on mobile -->
+      <div class="header-actions">
+        <a href="tel:5551234567" class="btn btn-primary header-call-btn">
+          📞 Call<span class="call-number-extra"> Now: (555) 123-4567</span>
+        </a>
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          aria-expanded="false"
+          aria-controls="mobileNav"
+          aria-label="Toggle Navigation Menu"
+        >
+          ☰
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation (Absolute overlay: does not shift page when opened) -->
+    <nav id="mobileNav" class="mobile-nav" aria-label="Mobile Navigation">
+      <ul>
+        <li><a href="#services" class="mobile-nav-link">Services</a></li>
+        <li><a href="#gallery" class="mobile-nav-link">Gallery</a></li>
+        <li><a href="#reviews" class="mobile-nav-link">Reviews</a></li>
+        <li><a href="#areas" class="mobile-nav-link">Areas</a></li>
+        <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
+        <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- ===================================================================
+         2. HERO SECTION
+         EDIT HEADLINE, SUBTEXT, AND HERO PHOTO BELOW
+         =================================================================== -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container hero-grid">
+        <div>
+          <!-- EDIT TEXT: Regional or Company Tagline -->
+          <span class="hero-kicker">Trusted Residential &amp; Commercial Roofing</span>
+          <!-- EDIT TEXT: Main Hero Headline -->
+          <h1 id="hero-heading" class="hero-headline">
+            Dependable Roofs Built to Weather Every Storm
+          </h1>
+          <!-- EDIT TEXT: Hero Subtext -->
+          <p class="hero-subtext">
+            From urgent leak repairs to complete architectural shingle and metal roof replacements, Summit Ridge Roofing protects local homeowners with honest pricing, American-made materials, and same-week scheduling.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
+            <!-- EDIT PHONE NUMBER -->
+            <a href="tel:5551234567" class="btn btn-outline-light">📞 (555) 123-4567</a>
+          </div>
+
+          <!-- Trust Badges (Unboxed clean layout with emojis) -->
+          <div class="trust-badges" aria-label="Company Credentials">
+            <div class="trust-badge-item">
+              <span aria-hidden="true">🛡️</span>
+              <span>Licensed</span>
+            </div>
+            <div class="trust-badge-item">
+              <span aria-hidden="true">✅</span>
+              <span>Insured</span>
+            </div>
+            <div class="trust-badge-item">
+              <span aria-hidden="true">🏅</span>
+              <span>10-Year Warranty</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Visual Showcase Card -->
+        <div class="hero-visual-card">
+          <div class="hero-visual-photo">
+            <!-- EDIT IMAGE: Replace src with your featured crew or completed roof photo (e.g. src="images/hero-roof.jpg") -->
+            <!-- MOBILE UPDATE: Explicit width & height attributes prevent layout jumping -->
+            <img
+              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+              width="640"
+              height="400"
+              alt="Summit Ridge Roofing crew installing architectural shingles on a residential home"
+            />
+            <div class="hero-photo-caption">
+              <span class="emoji-large" aria-hidden="true">🏠</span>
+              <strong style="font-size: 1.125rem; font-weight: 900;">Free 21-Point Roof Inspection</strong>
+              <span style="font-size: 0.9375rem; color: #E2E8F0; margin-top: 6px;">
+                Includes drone photo report &amp; itemized written estimate
+              </span>
+            </div>
+          </div>
+          <div class="hero-stat-row">
+            <div class="hero-stat">
+              <strong>1,500+</strong>
+              <span>Roofs Built</span>
+            </div>
+            <div class="hero-stat">
+              <strong>4.9 ★</strong>
+              <span>Rating</span>
+            </div>
+            <div class="hero-stat">
+              <strong>24/7</strong>
+              <span>Dispatch</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         3. SERVICES SECTION (6 Cards)
+         EDIT SERVICE TITLES & DESCRIPTIONS BELOW
+         =================================================================== -->
+    <section id="services" class="services-section" aria-labelledby="services-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Our Core Capabilities</span>
+          <h2 id="services-heading" class="section-title">Complete Roofing &amp; Exterior Services</h2>
+          <p class="section-subtitle">
+            Every Summit Ridge Roofing project is completed by our in-house certified installers according to strict manufacturer specifications and local building codes.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <!-- Card 1: Roof Repair -->
+          <article class="service-card">
+            <div>
+              <div class="service-icon" aria-hidden="true">🔨</div>
+              <h3>Roof Repair</h3>
+              <p>
+                Fast diagnosis and permanent repairs for active roof leaks, blown-off shingles, cracked pipe boots, chimney flashing, and valley wear.
+              </p>
+            </div>
+            <a href="#contact" class="service-link" data-service="Roof Repair">Request Repair Quote →</a>
+          </article>
+
+          <!-- Card 2: Roof Replacement -->
+          <article class="service-card">
+            <div>
+              <div class="service-icon" aria-hidden="true">🏠</div>
+              <h3>Roof Replacement</h3>
+              <p>
+                Full tear-off and installation of Class 4 impact-resistant architectural shingles, standing seam metal, and flat commercial TPO systems.
+              </p>
+            </div>
+            <a href="#contact" class="service-link" data-service="Roof Replacement">Request Replacement Quote →</a>
+          </article>
+
+          <!-- Card 3: Storm Damage -->
+          <article class="service-card">
+            <div>
+              <div class="service-icon" aria-hidden="true">⛈️</div>
+              <h3>Storm Damage</h3>
+              <p>
+                Comprehensive hail and wind damage restoration. We document all impact points and meet directly with your insurance adjuster on-site.
+              </p>
+            </div>
+            <a href="#contact" class="service-link" data-service="Storm Damage">Request Storm Assessment →</a>
+          </article>
+
+          <!-- Card 4: Inspections -->
+          <article class="service-card">
+            <div>
+              <div class="service-icon" aria-hidden="true">🔍</div>
+              <h3>Inspections</h3>
+              <p>
+                Detailed 21-point roof, attic ventilation, and decking inspections for preventative maintenance, real estate closings, and insurance renewals.
+              </p>
+            </div>
+            <a href="#contact" class="service-link" data-service="Inspections">Book Free Inspection →</a>
+          </article>
+
+          <!-- Card 5: Gutters -->
+          <article class="service-card">
+            <div>
+              <div class="service-icon" aria-hidden="true">🌧️</div>
+              <h3>Gutters</h3>
+              <p>
+                Custom-measured 5-inch and 6-inch seamless aluminum gutters, oversized downspouts, and stainless micro-mesh leaf guards.
+              </p>
+            </div>
+            <a href="#contact" class="service-link" data-service="Gutters">Get Gutter Estimate →</a>
+          </article>
+
+          <!-- Card 6: Emergency Tarping -->
+          <article class="service-card">
+            <div>
+              <div class="service-icon" aria-hidden="true">🚨</div>
+              <h3>Emergency Tarping</h3>
+              <p>
+                24/7 rapid-response roof tarping and board-up service to stop water intrusion immediately after fallen trees or severe overnight storms.
+              </p>
+            </div>
+            <a href="#contact" class="service-link" data-service="Emergency Tarping">Request Emergency Dispatch →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         4. WHY CHOOSE US SECTION (4 Short Points with Icons)
+         =================================================================== -->
+    <section class="why-us-section" aria-labelledby="why-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">The Summit Ridge Roofing Difference</span>
+          <h2 id="why-heading" class="section-title">Why Homeowners Trust Our Crew</h2>
+          <p class="section-subtitle">
+            We treat your property with respect from the first ladder placement to the final magnetic nail sweep.
+          </p>
+        </div>
+
+        <div class="why-grid">
+          <div class="why-card">
+            <span class="why-emoji" aria-hidden="true">📋</span>
+            <h3>Upfront Written Pricing</h3>
+            <p>Itemized estimates with zero surprise add-ons. You know the exact cost of materials and labor before work begins.</p>
+          </div>
+
+          <div class="why-card">
+            <span class="why-emoji" aria-hidden="true">⚡</span>
+            <h3>One-Day Installations</h3>
+            <p>Most residential roof replacements are stripped, inspected, and installed in a single day with our seasoned crew.</p>
+          </div>
+
+          <div class="why-card">
+            <span class="why-emoji" aria-hidden="true">🧹</span>
+            <h3>Spotless Property Guarantee</h3>
+            <p>We protect your landscaping with breathable tarps and run heavy-duty rolling magnets across your lawn and driveway.</p>
+          </div>
+
+          <div class="why-card">
+            <span class="why-emoji" aria-hidden="true">🛡️</span>
+            <h3>10-Year Workmanship Warranty</h3>
+            <p>Backed by lifetime manufacturer shingle warranties plus our own 10-year transferable labor guarantee.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         5. GALLERY SECTION (6 Placeholder Before/After Image Blocks)
+         EDIT IMAGES: Replace the <img> src attributes with your own project photos
+         MOBILE UPDATE: Explicit width="400" height="300" on all images
+         =================================================================== -->
+    <section id="gallery" class="gallery-section" aria-labelledby="gallery-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Recent Craftsmanship</span>
+          <h2 id="gallery-heading" class="section-title">Before &amp; After Project Gallery</h2>
+          <p class="section-subtitle">
+            See how Summit Ridge Roofing transforms weathered, storm-damaged roofs into durable, curb-appeal upgrades.
+          </p>
+        </div>
+
+        <div class="gallery-grid">
+          <!-- Project 1 -->
+          <article class="gallery-card">
+            <div class="before-after-pair">
+              <div class="photo-slot before-slot">
+                <!-- EDIT IMAGE 1 BEFORE: Replace src with your photo -->
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="Before: Weathered 22-year-old 3-tab shingle roof with wind creases" />
+                <div class="photo-slot-content">
+                  <span class="photo-tag">Before</span>
+                  <span class="photo-desc">📷 Aged 3-Tab Shingles</span>
+                </div>
+              </div>
+              <div class="photo-slot after-slot">
+                <!-- EDIT IMAGE 1 AFTER: Replace src with your photo -->
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="After: New Charcoal architectural shingles with ridge vents" />
+                <div class="photo-slot-content">
+                  <span class="photo-tag">After</span>
+                  <span class="photo-desc">🏠 Charcoal Architectural</span>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <h3>Full Architectural Replacement</h3>
+              <p>3,200 sq. ft. residential tear-off, synthetic underlayment &amp; ridge vent upgrade.</p>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="gallery-card">
+            <div class="before-after-pair">
+              <div class="photo-slot before-slot">
+                <!-- EDIT IMAGE 2 BEFORE: Replace src with your photo -->
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="Before: Hail bruised roof shingles and dented soft metal vents" />
+                <div class="photo-slot-content">
+                  <span class="photo-tag">Before</span>
+                  <span class="photo-desc">📷 Severe Hail Impact</span>
+                </div>
+              </div>
+              <div class="photo-slot after-slot">
+                <!-- EDIT IMAGE 2 AFTER: Replace src with your photo -->
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="After: Class 4 impact resistant Weathered Wood roof system" />
+                <div class="photo-slot-content">
+                  <span class="photo-tag">After</span>
+                  <span class="photo-desc">🛡️ Class 4 Impact Shingles</span>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <h3>Hail Storm Insurance Restoration</h3>
+              <p>Upgraded to UL 2218 Class 4 impact-resistant shingles with new drip edge.</p>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="gallery-card">
+            <div class="before-after-pair">
+              <div class="photo-slot before-slot">
+                <!-- EDIT IMAGE 3 BEFORE: Replace src with your photo -->
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="Before: Rusted chimney flashing causing interior ceiling leak" />
+                <div class="photo-slot-content">
+                  <span class="photo-tag">Before</span>
+                  <span class="photo-desc">📷 Leaking Chimney Step</span>
+                </div>
+              </div>
+              <div class="photo-slot after-slot">
+                <!-- EDIT IMAGE 3 AFTER: Replace src with your photo -->
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="After: Custom bent aluminum counter-flashing and ice & water shield" />
+                <div class="photo-slot-content">
+                  <span class="photo-tag">After</span>
+                  <span class="photo-desc">🔨 Custom Step Flashing</span>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <h3>Chimney Flashing &amp; Valley Rebuild</h3>
+              <p>Replaced rotted OSB decking, installed ice &amp; water barrier, and custom step flashing.</p>
+            </div>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="gallery-card">
+            <div class="before-after-pair">
+              <div class="photo-slot before-slot">
+                <!-- EDIT IMAGE 4 BEFORE: Replace src with your photo -->
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="Before: Faded asphalt roof on modern farmhouse home" />
+                <div class="photo-slot-content">
+                  <span class="photo-tag">Before</span>
+                  <span class="photo-desc">📷 Worn Asphalt Roof</span>
+                </div>
+              </div>
+              <div class="photo-slot after-slot">
+                <!-- EDIT IMAGE 4 AFTER: Replace src with your photo -->
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="After: Matte black 24-gauge standing seam metal roof" />
+                <div class="photo-slot-content">
+                  <span class="photo-tag">After</span>
+                  <span class="photo-desc">✨ Standing Seam Metal</span>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <h3>24-Gauge Standing Seam Metal Roof</h3>
+              <p>Concealed-fastener matte black metal panels rated for 140 MPH wind uplift.</p>
+            </div>
+          </article>
+
+          <!-- Project 5 -->
+          <article class="gallery-card">
+            <div class="before-after-pair">
+              <div class="photo-slot before-slot">
+                <!-- EDIT IMAGE 5 BEFORE: Replace src with your photo -->
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="Before: Sagging sectional gutters overflowing with pine needles" />
+                <div class="photo-slot-content">
+                  <span class="photo-tag">Before</span>
+                  <span class="photo-desc">📷 Sagging 4-Inch Gutters</span>
+                </div>
+              </div>
+              <div class="photo-slot after-slot">
+                <!-- EDIT IMAGE 5 AFTER: Replace src with your photo -->
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="After: 6-inch seamless aluminum gutters with stainless leaf guards" />
+                <div class="photo-slot-content">
+                  <span class="photo-tag">After</span>
+                  <span class="photo-desc">🌧️ 6" Seamless + Guards</span>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <h3>6-Inch Seamless Gutters &amp; Guards</h3>
+              <p>Extruded on-site with hidden screw hangers and stainless micro-mesh protection.</p>
+            </div>
+          </article>
+
+          <!-- Project 6 -->
+          <article class="gallery-card">
+            <div class="before-after-pair">
+              <div class="photo-slot before-slot">
+                <!-- EDIT IMAGE 6 BEFORE: Replace src with your photo -->
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="Before: Tree limb puncture hole on rear roof slope after windstorm" />
+                <div class="photo-slot-content">
+                  <span class="photo-tag">Before</span>
+                  <span class="photo-desc">📷 Fallen Limb Puncture</span>
+                </div>
+              </div>
+              <div class="photo-slot after-slot">
+                <!-- EDIT IMAGE 6 AFTER: Replace src with your photo -->
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="After: Structural rafter sistering, new decking, and color-matched shingles" />
+                <div class="photo-slot-content">
+                  <span class="photo-tag">After</span>
+                  <span class="photo-desc">✅ Structural Slope Repair</span>
+                </div>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <h3>Emergency Tarping &amp; Decking Repair</h3>
+              <p>Same-night emergency dry-in followed by structural rafter and shingle restoration.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         6. REVIEWS SECTION (3 Customer Testimonials with 5-Star Ratings)
+         EDIT TESTIMONIALS BELOW
+         =================================================================== -->
+    <section id="reviews" class="reviews-section" aria-labelledby="reviews-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Verified Homeowner Feedback</span>
+          <h2 id="reviews-heading" class="section-title">What Our Neighbors Are Saying</h2>
+          <p class="section-subtitle">
+            Read real experiences from homeowners who trusted Summit Ridge Roofing with their roof repairs and replacements.
+          </p>
+        </div>
+
+        <div class="reviews-grid">
+          <!-- Review 1 -->
+          <article class="review-card">
+            <div>
+              <div class="review-stars" aria-label="5 out of 5 stars">⭐⭐⭐⭐⭐</div>
+              <blockquote class="review-quote">
+                "After a spring hailstorm damaged our roof, Summit Ridge Roofing inspected our shingles the very next day, met with our insurance adjuster, and replaced the entire 2,800 sq. ft. roof in one day. Not a single nail was left in the yard!"
+              </blockquote>
+            </div>
+            <div class="review-author">
+              <strong>Mark &amp; Jennifer Callahan</strong>
+              <span>Full Roof Replacement · Oakwood Estates</span>
+            </div>
+          </article>
+
+          <!-- Review 2 -->
+          <article class="review-card">
+            <div>
+              <div class="review-stars" aria-label="5 out of 5 stars">⭐⭐⭐⭐⭐</div>
+              <blockquote class="review-quote">
+                "Two other companies told us we needed a whole new roof when water spotted our hallway ceiling. Summit Ridge Roofing showed us drone photos of a cracked vent boot and rusted flashing, fixed both for a fair flat rate, and saved us thousands."
+              </blockquote>
+            </div>
+            <div class="review-author">
+              <strong>David Morales</strong>
+              <span>Leak &amp; Flashing Repair · Cedar Park</span>
+            </div>
+          </article>
+
+          <!-- Review 3 -->
+          <article class="review-card">
+            <div>
+              <div class="review-stars" aria-label="5 out of 5 stars">⭐⭐⭐⭐⭐</div>
+              <blockquote class="review-quote">
+                "Prompt, courteous, and transparent from start to finish. Their crew arrived at 7:00 AM sharp, protected all of my rose bushes, installed our new architectural roof and 6-inch gutters, and walked me through the 10-year warranty."
+              </blockquote>
+            </div>
+            <div class="review-author">
+              <strong>Patricia Lindqvist</strong>
+              <span>Roof &amp; Seamless Gutters · Westside Hills</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         7. SERVICE AREAS SECTION (List of Example US Cities)
+         EDIT CITIES: Replace these example US cities with your local service area
+         =================================================================== -->
+    <section id="areas" class="areas-section" aria-labelledby="areas-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Where We Work</span>
+          <h2 id="areas-heading" class="section-title">Proudly Serving Our Local Communities</h2>
+          <p class="section-subtitle">
+            We provide free on-site estimates and rapid storm response within a 50-mile radius of our main shop.
+          </p>
+        </div>
+
+        <div class="areas-box">
+          <!-- EDIT SERVICE AREAS: Change the city names below to match your region -->
+          <ul class="areas-grid" aria-label="Service Area Cities">
+            <li class="area-item"><span aria-hidden="true">📍</span> Austin, TX</li>
+            <li class="area-item"><span aria-hidden="true">📍</span> Round Rock, TX</li>
+            <li class="area-item"><span aria-hidden="true">📍</span> Cedar Park, TX</li>
+            <li class="area-item"><span aria-hidden="true">📍</span> Georgetown, TX</li>
+            <li class="area-item"><span aria-hidden="true">📍</span> Pflugerville, TX</li>
+            <li class="area-item"><span aria-hidden="true">📍</span> Leander, TX</li>
+            <li class="area-item"><span aria-hidden="true">📍</span> Kyle, TX</li>
+            <li class="area-item"><span aria-hidden="true">📍</span> Buda, TX</li>
+            <li class="area-item"><span aria-hidden="true">📍</span> San Marcos, TX</li>
+            <li class="area-item"><span aria-hidden="true">📍</span> Dripping Springs, TX</li>
+            <li class="area-item"><span aria-hidden="true">📍</span> Lakeway, TX</li>
+            <li class="area-item"><span aria-hidden="true">📍</span> Bee Cave, TX</li>
+          </ul>
+          <p class="areas-note">
+            Don't see your town listed? Give us a call at <a href="tel:5551234567">(555) 123-4567</a> — we frequently travel for full replacements and storm restoration!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         8. FAQ SECTION (5 Questions as an Accordion)
+         EDIT FAQ QUESTIONS & ANSWERS BELOW
+         =================================================================== -->
+    <section id="faq" class="faq-section" aria-labelledby="faq-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Common Questions</span>
+          <h2 id="faq-heading" class="section-title">Frequently Asked Roofing Questions</h2>
+          <p class="section-subtitle">
+            Straightforward answers to help you make an informed decision for your home.
+          </p>
+        </div>
+
+        <div class="faq-list">
+          <!-- Question 1 -->
+          <div class="faq-item is-open">
+            <button type="button" class="faq-trigger" aria-expanded="true">
+              <span>1. How do I know if I need a full roof replacement or just a repair?</span>
+              <span class="faq-icon" aria-hidden="true">−</span>
+            </button>
+            <div class="faq-answer">
+              If your roof is under 15 years old and damage is isolated to a single pipe boot, flashing joint, or a few wind-blown shingles, a targeted repair is usually the most cost-effective solution. If your shingles have widespread granule loss, curling edges, soft decking, or pervasive hail bruising across multiple slopes, a full replacement provides better long-term protection.
+            </div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span>2. How long does a standard residential roof replacement take?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              Most single-family residential roofs (up to 3,500 sq. ft.) are completely torn off, inspected, felted, and shingled in 1 to 2 days. Steep-pitch roofs, custom standing seam metal installations, or homes requiring extensive wood decking replacement may take 2 to 3 days.
+            </div>
+          </div>
+
+          <!-- Question 3 -->
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span>3. Will my homeowners insurance cover storm or hail damage?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              Most standard US homeowners policies cover sudden, accidental damage caused by hail, windstorms, and fallen trees (minus your policy deductible). Summit Ridge Roofing provides a complimentary photo inspection packet and can meet your insurance adjuster at your property to ensure all storm damage is properly documented.
+            </div>
+          </div>
+
+          <!-- Question 4 -->
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span>4. What does your 10-Year Workmanship Warranty cover?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              In addition to the manufacturer's Limited Lifetime Material Warranty on shingles, our Summit Ridge Roofing 10-Year Workmanship Warranty covers installation labor, flashing details, valleys, and ridge vents. If any installation-related leak occurs within 10 years, we repair it at zero cost to you.
+            </div>
+          </div>
+
+          <!-- Question 5 -->
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span>5. Do I need to be home during the roof inspection or installation?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              You do not need to be home for an exterior roof inspection—we can inspect the roof, email you high-resolution photos, and review the estimate by phone or in person. During installation day, we only ask that vehicles are moved out of the driveway and pets are kept safely indoors.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         9. CONTACT SECTION (Simple Form with Front-End Validation)
+         =================================================================== -->
+    <section id="contact" class="contact-section" aria-labelledby="contact-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Free No-Obligation Estimate</span>
+          <h2 id="contact-heading" class="section-title">Request Your Free Roof Quote</h2>
+          <p class="section-subtitle">
+            Fill out the quick form below or call us directly. We respond to all estimate requests within one business hour.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Left Column: Direct Contact Info -->
+          <aside class="contact-info-box" aria-label="Direct Contact Information">
+            <h3>Speak With a Roofing Specialist Today</h3>
+            <p>
+              Need immediate emergency tarping or want to schedule a free inspection? Reach out directly:
+            </p>
+
+            <!-- EDIT CONTACT DETAILS BELOW -->
+            <div class="contact-detail-list">
+              <div class="contact-detail-item">
+                <span aria-hidden="true">📞</span>
+                <div>
+                  <strong>Phone (24/7 Emergency Line)</strong>
+                  <a href="tel:5551234567">(555) 123-4567</a>
+                </div>
+              </div>
+
+              <div class="contact-detail-item">
+                <span aria-hidden="true">✉️</span>
+                <div>
+                  <strong>Email Address</strong>
+                  <a href="mailto:estimates@summitridgeroofing.com">estimates@summitridgeroofing.com</a>
+                </div>
+              </div>
+
+              <div class="contact-detail-item">
+                <span aria-hidden="true">🕒</span>
+                <div>
+                  <strong>Standard Office Hours</strong>
+                  <span>Mon – Sat: 7:00 AM – 6:00 PM<br />Sunday: Emergency Storm Dispatch</span>
+                </div>
+              </div>
+
+              <div class="contact-detail-item">
+                <span aria-hidden="true">🪪</span>
+                <div>
+                  <strong>License &amp; Insurance</strong>
+                  <span>State Contractor License #ROOF-984210<br />Fully Insured ($2M General Liability &amp; Workers' Comp)</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Right Column: Validated Estimate Form -->
+          <div class="contact-form-card">
+            <form id="quoteForm" novalidate>
+              <div class="form-grid">
+                <div class="form-grid-two">
+                  <div class="form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input
+                      type="text"
+                      id="fullName"
+                      name="fullName"
+                      class="form-control"
+                      placeholder="Jane Smith"
+                      required
+                      autocomplete="name"
+                    />
+                    <span class="error-msg" id="nameError">Please enter your full name.</span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      class="form-control"
+                      placeholder="(555) 234-5678"
+                      required
+                      autocomplete="tel"
+                    />
+                    <span class="error-msg" id="phoneError">Please enter a valid 10-digit US phone number.</span>
+                  </div>
+                </div>
+
+                <div class="form-grid-two">
+                  <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      class="form-control"
+                      placeholder="jane@example.com"
+                      required
+                      autocomplete="email"
+                    />
+                    <span class="error-msg" id="emailError">Please enter a valid email address.</span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="serviceType">Service Needed *</label>
+                    <select id="serviceType" name="serviceType" class="form-control" required>
+                      <option value="">Select a service...</option>
+                      <option value="Roof Repair">Roof Repair</option>
+                      <option value="Roof Replacement">Roof Replacement</option>
+                      <option value="Storm Damage">Storm Damage</option>
+                      <option value="Inspections">Free Roof Inspection</option>
+                      <option value="Gutters">Seamless Gutters</option>
+                      <option value="Emergency Tarping">Emergency Tarping</option>
+                    </select>
+                    <span class="error-msg" id="serviceError">Please select the service you need.</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="message">Project Details or Address (Optional)</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="4"
+                    class="form-control"
+                    placeholder="Tell us about your roof issue, approximate age of roof, or property address..."
+                  ></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                  Request My Free Quote
+                </button>
+              </div>
+
+              <!-- Confirmation Banner Shown After Valid Submit -->
+              <div id="formSuccessBanner" class="form-success-banner" role="status" aria-live="polite">
+                ✅ Thanks, we'll call you soon!
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================================
+       10. FOOTER SECTION
+       EDIT FOOTER PHONE, EMAIL, HOURS, AND LICENSE NUMBER BELOW
+       ===================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <!-- EDIT BUSINESS NAME: Summit Ridge Roofing -->
+          <h4>Summit Ridge Roofing</h4>
+          <p style="max-width: 380px;">
+            Locally owned and operated residential &amp; commercial roofing contractor dedicated to honest inspections, superior craftsmanship, and storm-ready protection.
+          </p>
+          <!-- EDIT LICENSE NUMBER PLACEHOLDER -->
+          <p style="color: #FFFFFF; font-weight: 800; margin-top: 12px;">
+            🪪 License #: STATE-ROOF-984210 (Bonded &amp; Insured)
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact Details</h4>
+          <ul>
+            <!-- EDIT PHONE & EMAIL -->
+            <li>📞 Phone: <a href="tel:5551234567">(555) 123-4567</a></li>
+            <li>✉️ Email: <a href="mailto:estimates@summitridgeroofing.com">estimates@summitridgeroofing.com</a></li>
+            <li>📍 Office: 1200 Industrial Pkwy, Suite 100</li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Business Hours</h4>
+          <ul>
+            <!-- EDIT BUSINESS HOURS -->
+            <li>Mon – Fri: 7:00 AM – 6:00 PM</li>
+            <li>Saturday: 8:00 AM – 4:00 PM</li>
+            <li>Sunday: 24/7 Emergency Tarping Only</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="currentYear">2026</span> Summit Ridge Roofing. All rights reserved.</p>
+        <p>Licensed · Bonded · Insured · 10-Year Workmanship Warranty</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       STICKY MOBILE BAR (Visible on Mobile Screens)
+       ===================================================================== -->
+  <div class="mobile-sticky-bar" aria-label="Quick Mobile Actions">
+    <!-- EDIT PHONE NUMBER -->
+    <a href="tel:5551234567" class="btn btn-primary">📞 Call Now</a>
+    <a href="#contact" class="btn btn-outline-light">Free Quote</a>
+  </div>
+
+  <!-- =====================================================================
+       PLAIN JAVASCRIPT: Mobile Menu, Service Pre-Select, FAQ Accordion & Form Validation
+       ===================================================================== -->
+  <script>
+    (function () {
+      // 1. Dynamic Footer Year
+      var yearSpan = document.getElementById('currentYear');
+      if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+      }
+
+      // 2. Mobile Navigation Toggle (Closes when a link or outside area is tapped)
+      var mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      var mobileNav = document.getElementById('mobileNav');
+      var mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+      function closeMobileMenu() {
+        if (!mobileNav || !mobileMenuBtn) return;
+        mobileNav.classList.remove('is-open');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        mobileMenuBtn.textContent = '☰';
+      }
+
+      if (mobileMenuBtn && mobileNav) {
+        mobileMenuBtn.addEventListener('click', function () {
+          var isOpen = mobileNav.classList.toggle('is-open');
+          mobileMenuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          mobileMenuBtn.textContent = isOpen ? '✕' : '☰';
+        });
+
+        mobileNavLinks.forEach(function (link) {
+          link.addEventListener('click', closeMobileMenu);
+        });
+
+        document.addEventListener('click', function (e) {
+          if (
+            mobileNav.classList.contains('is-open') &&
+            !mobileNav.contains(e.target) &&
+            !mobileMenuBtn.contains(e.target)
+          ) {
+            closeMobileMenu();
+          }
+        });
+      }
+
+      // 3. Pre-select Service Dropdown when clicking a Service Card link
+      var serviceLinks = document.querySelectorAll('.service-link');
+      var serviceSelect = document.getElementById('serviceType');
+      serviceLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          var chosenService = link.getAttribute('data-service');
+          if (chosenService && serviceSelect) {
+            serviceSelect.value = chosenService;
+          }
+        });
+      });
+
+      // 4. Accessible FAQ Accordion
+      var faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(function (item) {
+        var trigger = item.querySelector('.faq-trigger');
+        var icon = item.querySelector('.faq-icon');
+        if (!trigger) return;
+
+        trigger.addEventListener('click', function () {
+          var currentlyOpen = item.classList.contains('is-open');
+
+          // Close other items for a clean accordion experience
+          faqItems.forEach(function (otherItem) {
+            otherItem.classList.remove('is-open');
+            var otherTrigger = otherItem.querySelector('.faq-trigger');
+            var otherIcon = otherItem.querySelector('.faq-icon');
+            if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+            if (otherIcon) otherIcon.textContent = '+';
+          });
+
+          if (!currentlyOpen) {
+            item.classList.add('is-open');
+            trigger.setAttribute('aria-expanded', 'true');
+            if (icon) icon.textContent = '−';
+          }
+        });
+      });
+
+      // 5. Front-End Contact Form Validation
+      var quoteForm = document.getElementById('quoteForm');
+      var fullName = document.getElementById('fullName');
+      var phone = document.getElementById('phone');
+      var email = document.getElementById('email');
+      var nameError = document.getElementById('nameError');
+      var phoneError = document.getElementById('phoneError');
+      var emailError = document.getElementById('emailError');
+      var serviceError = document.getElementById('serviceError');
+      var successBanner = document.getElementById('formSuccessBanner');
+
+      function setFieldError(inputEl, errorEl, hasError) {
+        if (!inputEl || !errorEl) return;
+        if (hasError) {
+          inputEl.classList.add('has-error');
+          errorEl.classList.add('visible');
+        } else {
+          inputEl.classList.remove('has-error');
+          errorEl.classList.remove('visible');
+        }
+      }
+
+      if (quoteForm) {
+        quoteForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var isValid = true;
+
+          // Validate Name
+          var nameVal = fullName.value.trim();
+          if (nameVal.length < 2) {
+            setFieldError(fullName, nameError, true);
+            isValid = false;
+          } else {
+            setFieldError(fullName, nameError, false);
+          }
+
+          // Validate US Phone (at least 10 digits)
+          var digitsOnly = phone.value.replace(/\D/g, '');
+          if (digitsOnly.length < 10) {
+            setFieldError(phone, phoneError, true);
+            isValid = false;
+          } else {
+            setFieldError(phone, phoneError, false);
+          }
+
+          // Validate Email
+          var emailVal = email.value.trim();
+          var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailPattern.test(emailVal)) {
+            setFieldError(email, emailError, true);
+            isValid = false;
+          } else {
+            setFieldError(email, emailError, false);
+          }
+
+          // Validate Service Type
+          if (!serviceSelect.value) {
+            setFieldError(serviceSelect, serviceError, true);
+            isValid = false;
+          } else {
+            setFieldError(serviceSelect, serviceError, false);
+          }
+
+          if (isValid) {
+            successBanner.classList.add('visible');
+            quoteForm.reset();
+          } else {
+            successBanner.classList.remove('visible');
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
