@@ -1573,6 +1573,7 @@
               </span>
             </div>
           </div>
+          <!-- PLACEHOLDER: replace with real data -->
           <div class="hero-stat-row">
             <div class="hero-stat">
               <strong>1,500+</strong>
@@ -1901,13 +1902,14 @@
          6. REVIEWS SECTION (3 Customer Testimonials with 5-Star Ratings)
          EDIT TESTIMONIALS BELOW
          =================================================================== -->
+    <!-- PLACEHOLDER: replace with real data -->
     <section id="reviews" class="reviews-section" aria-labelledby="reviews-heading">
       <div class="container">
         <div class="section-header">
-          <span class="section-kicker">Verified Homeowner Feedback</span>
+          <span class="section-kicker">Sample Customer Reviews</span>
           <h2 id="reviews-heading" class="section-title">What Our Neighbors Are Saying</h2>
           <p class="section-subtitle">
-            Read real experiences from homeowners who trusted <span data-config-name>Summit Ridge Roofing</span> with their roof repairs and replacements.
+            Replace these with your real customer reviews.
           </p>
         </div>
 
@@ -1921,7 +1923,7 @@
               </blockquote>
             </div>
             <div class="review-author">
-              <strong>Mark &amp; Jennifer Callahan</strong>
+              <strong>Customer Name</strong>
               <span>Full Roof Replacement · Oakwood Estates</span>
             </div>
           </article>
@@ -1935,7 +1937,7 @@
               </blockquote>
             </div>
             <div class="review-author">
-              <strong>David Morales</strong>
+              <strong>Customer Name</strong>
               <!-- REPLACE: city -->
               <span>Leak &amp; Flashing Repair · Cedar Park</span>
             </div>
@@ -1950,7 +1952,7 @@
               </blockquote>
             </div>
             <div class="review-author">
-              <strong>Patricia Lindqvist</strong>
+              <strong>Customer Name</strong>
               <span>Roof &amp; Seamless Gutters · Westside Hills</span>
             </div>
           </article>
@@ -2122,7 +2124,8 @@
                 <span aria-hidden="true">🪪</span>
                 <div>
                   <strong>License &amp; Insurance</strong>
-                  <span>State Contractor License #<span data-config-contact-license>ROOF-984210</span><br />Fully Insured ($2M General Liability &amp; Workers' Comp)</span>
+                  <!-- PLACEHOLDER: replace with real data -->
+                  <span>State Contractor License: <span data-config-contact-license>[YOUR LICENSE #]</span><br />Fully Insured ($2M General Liability &amp; Workers' Comp)</span>
                 </div>
               </div>
             </div>
@@ -2233,8 +2236,9 @@
             Locally owned and operated residential &amp; commercial roofing contractor dedicated to honest inspections, superior craftsmanship, and storm-ready protection.
           </p>
           <!-- EDIT LICENSE NUMBER PLACEHOLDER -->
+          <!-- PLACEHOLDER: replace with real data -->
           <p style="color: #FFFFFF; font-weight: 800; margin-top: 12px;">
-            🪪 License #: <span data-config-license>STATE-ROOF-984210</span> (Bonded &amp; Insured)
+            🪪 License: <span data-config-license>[YOUR LICENSE #]</span> (Bonded &amp; Insured)
           </p>
         </div>
 
@@ -2354,13 +2358,13 @@
           });
         }
 
-        if (cfg.licenseNumber) {
+        if (cfg.licenseNumber && cfg.licenseNumber !== 'STATE-ROOF-984210') {
           document.querySelectorAll('[data-config-license]').forEach(function (el) {
             el.textContent = cfg.licenseNumber;
           });
         }
 
-        if (cfg.contactLicenseNumber) {
+        if (cfg.contactLicenseNumber && cfg.contactLicenseNumber !== 'ROOF-984210') {
           document.querySelectorAll('[data-config-contact-license]').forEach(function (el) {
             el.textContent = cfg.contactLicenseNumber;
           });
