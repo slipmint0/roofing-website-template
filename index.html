@@ -9,11 +9,48 @@
        Replace "Summit Ridge Roofing" and city/state with your actual company details
        ===================================================================== -->
   <title>Summit Ridge Roofing | Licensed Residential &amp; Commercial Roofing Contractor</title>
+  <!-- REPLACE: phone -->
   <meta name="description" content="Summit Ridge Roofing provides licensed, insured roof repair, full roof replacement, storm damage restoration, and free 21-point inspections. Call (555) 123-4567 for a free quote." />
   <meta property="og:title" content="Summit Ridge Roofing | Licensed Residential &amp; Commercial Roofing Contractor" />
+  <!-- REPLACE: phone -->
   <meta property="og:description" content="Summit Ridge Roofing is a trusted local roofing contractor offering roof repairs, replacements, storm restoration, and a 10-Year Workmanship Warranty. Call (555) 123-4567." />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- =====================================================================
+       CENTRALIZED SITE CONFIGURATION (EDIT HERE IN ONE PLACE)
+       Updating these values automatically updates the business name, phone,
+       email, address, license number, and service-area cities page-wide.
+       ===================================================================== -->
+  <script>
+    window.SITE_CONFIG = {
+      businessName: 'Summit Ridge Roofing',
+      logoPrefix: 'Summit',
+      logoAccent: 'Ridge',
+      logoSuffix: 'Roofing',
+      phoneDisplay: '(555) 123-4567', // REPLACE: phone
+      phoneHref: 'tel:5551234567', // REPLACE: phone
+      email: 'estimates@summitridgeroofing.com',
+      officeAddress: '1200 Industrial Pkwy, Suite 100',
+      licenseNumber: 'STATE-ROOF-984210',
+      contactLicenseNumber: 'ROOF-984210',
+      primaryCity: 'Austin, TX', // REPLACE: city
+      serviceAreas: [ // REPLACE: city
+        'Austin, TX', // REPLACE: city
+        'Round Rock, TX',
+        'Cedar Park, TX',
+        'Georgetown, TX',
+        'Pflugerville, TX',
+        'Leander, TX',
+        'Kyle, TX',
+        'Buda, TX',
+        'San Marcos, TX',
+        'Dripping Springs, TX',
+        'Lakeway, TX',
+        'Bee Cave, TX'
+      ]
+    };
+  </script>
 
   <!-- MOBILE UPDATE: Added weight 900 & font-display=swap to prevent layout shift when fonts load -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -594,19 +631,21 @@
 
     .hero-photo-caption {
       position: absolute;
-      inset: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 16px;
+      padding: 12px 16px;
       text-align: center;
-      background-color: var(--color-navy-light);
+      background-color: rgba(6, 16, 30, 0.88);
+      border-top: 2px solid var(--color-orange);
     }
 
     .hero-photo-caption .emoji-large {
-      font-size: 3rem;
-      margin-bottom: 8px;
+      display: none;
     }
 
     .hero-stat-row {
@@ -866,12 +905,18 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.15;
+      opacity: 1;
     }
 
     .photo-slot-content {
-      position: relative;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
       z-index: 1;
+      padding: 6px 8px;
+      background-color: rgba(6, 16, 30, 0.88);
+      color: var(--color-white);
     }
 
     .photo-tag {
@@ -880,11 +925,11 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 2px;
     }
 
     .before-slot .photo-tag {
-      color: #334155;
+      color: #CBD5E1;
     }
 
     .after-slot .photo-tag {
@@ -892,8 +937,9 @@
     }
 
     .photo-desc {
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
       font-weight: 700;
+      color: var(--color-white);
     }
 
     .gallery-caption {
@@ -1414,7 +1460,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <!-- EDIT BUSINESS NAME: Summit Ridge Roofing (replace with your company name if needed) -->
-      <a href="#" class="brand-logo" aria-label="Summit Ridge Roofing Home">
+      <a href="#" class="brand-logo" aria-label="Summit Ridge Roofing Home" data-config-logo>
         Summit&nbsp;<span>Ridge</span>&nbsp;Roofing
       </a>
 
@@ -1431,9 +1477,10 @@
       </nav>
 
       <!-- EDIT PHONE NUMBER: Update tel:5551234567 and display text -->
+      <!-- REPLACE: phone -->
       <!-- MOBILE UPDATE: Shows "📞 Call" under 768px; hides phone number text in a span with display: none on mobile -->
       <div class="header-actions">
-        <a href="tel:5551234567" class="btn btn-primary header-call-btn">
+        <a href="tel:5551234567" class="btn btn-primary header-call-btn" data-config-header-call>
           📞 Call<span class="call-number-extra"> Now: (555) 123-4567</span>
         </a>
         <button
@@ -1478,13 +1525,14 @@
           </h1>
           <!-- EDIT TEXT: Hero Subtext -->
           <p class="hero-subtext">
-            From urgent leak repairs to complete architectural shingle and metal roof replacements, Summit Ridge Roofing protects local homeowners with honest pricing, American-made materials, and same-week scheduling.
+            From urgent leak repairs to complete architectural shingle and metal roof replacements, <span data-config-name>Summit Ridge Roofing</span> protects local homeowners with honest pricing, American-made materials, and same-week scheduling.
           </p>
 
           <div class="hero-cta-group">
             <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
             <!-- EDIT PHONE NUMBER -->
-            <a href="tel:5551234567" class="btn btn-outline-light">📞 (555) 123-4567</a>
+            <!-- REPLACE: phone -->
+            <a href="tel:5551234567" class="btn btn-outline-light" data-config-phone-btn>📞 (555) 123-4567</a>
           </div>
 
           <!-- Trust Badges (Unboxed clean layout with emojis) -->
@@ -1507,13 +1555,15 @@
         <!-- Hero Visual Showcase Card -->
         <div class="hero-visual-card">
           <div class="hero-visual-photo">
-            <!-- EDIT IMAGE: Replace src with your featured crew or completed roof photo (e.g. src="images/hero-roof.jpg") -->
+            <!-- EDIT IMAGE: Replace src with your featured crew or completed roof photo -->
             <!-- MOBILE UPDATE: Explicit width & height attributes prevent layout jumping -->
             <img
-              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+              src="/images/hero-roofing-crew.webp"
               width="640"
               height="400"
+              loading="eager"
               alt="Summit Ridge Roofing crew installing architectural shingles on a residential home"
+              data-config-hero-alt
             />
             <div class="hero-photo-caption">
               <span class="emoji-large" aria-hidden="true">🏠</span>
@@ -1551,7 +1601,7 @@
           <span class="section-kicker">Our Core Capabilities</span>
           <h2 id="services-heading" class="section-title">Complete Roofing &amp; Exterior Services</h2>
           <p class="section-subtitle">
-            Every Summit Ridge Roofing project is completed by our in-house certified installers according to strict manufacturer specifications and local building codes.
+            Every <span data-config-name>Summit Ridge Roofing</span> project is completed by our in-house certified installers according to strict manufacturer specifications and local building codes.
           </p>
         </div>
 
@@ -1637,7 +1687,7 @@
     <section class="why-us-section" aria-labelledby="why-heading">
       <div class="container">
         <div class="section-header">
-          <span class="section-kicker">The Summit Ridge Roofing Difference</span>
+          <span class="section-kicker">The <span data-config-name>Summit Ridge Roofing</span> Difference</span>
           <h2 id="why-heading" class="section-title">Why Homeowners Trust Our Crew</h2>
           <p class="section-subtitle">
             We treat your property with respect from the first ladder placement to the final magnetic nail sweep.
@@ -1683,7 +1733,7 @@
           <span class="section-kicker">Recent Craftsmanship</span>
           <h2 id="gallery-heading" class="section-title">Before &amp; After Project Gallery</h2>
           <p class="section-subtitle">
-            See how Summit Ridge Roofing transforms weathered, storm-damaged roofs into durable, curb-appeal upgrades.
+            See how <span data-config-name>Summit Ridge Roofing</span> transforms weathered, storm-damaged roofs into durable, curb-appeal upgrades.
           </p>
         </div>
 
@@ -1693,7 +1743,7 @@
             <div class="before-after-pair">
               <div class="photo-slot before-slot">
                 <!-- EDIT IMAGE 1 BEFORE: Replace src with your photo -->
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="Before: Weathered 22-year-old 3-tab shingle roof with wind creases" />
+                <img src="/images/gallery-1-before.webp" width="400" height="300" loading="lazy" alt="Before: Weathered 22-year-old 3-tab shingle roof with wind creases" />
                 <div class="photo-slot-content">
                   <span class="photo-tag">Before</span>
                   <span class="photo-desc">📷 Aged 3-Tab Shingles</span>
@@ -1701,7 +1751,7 @@
               </div>
               <div class="photo-slot after-slot">
                 <!-- EDIT IMAGE 1 AFTER: Replace src with your photo -->
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="After: New Charcoal architectural shingles with ridge vents" />
+                <img src="/images/gallery-1-after.webp" width="400" height="300" loading="lazy" alt="After: New Charcoal architectural shingles with ridge vents" />
                 <div class="photo-slot-content">
                   <span class="photo-tag">After</span>
                   <span class="photo-desc">🏠 Charcoal Architectural</span>
@@ -1719,7 +1769,7 @@
             <div class="before-after-pair">
               <div class="photo-slot before-slot">
                 <!-- EDIT IMAGE 2 BEFORE: Replace src with your photo -->
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="Before: Hail bruised roof shingles and dented soft metal vents" />
+                <img src="/images/gallery-2-before.webp" width="400" height="300" loading="lazy" alt="Before: Hail bruised roof shingles and dented soft metal vents" />
                 <div class="photo-slot-content">
                   <span class="photo-tag">Before</span>
                   <span class="photo-desc">📷 Severe Hail Impact</span>
@@ -1727,7 +1777,7 @@
               </div>
               <div class="photo-slot after-slot">
                 <!-- EDIT IMAGE 2 AFTER: Replace src with your photo -->
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="After: Class 4 impact resistant Weathered Wood roof system" />
+                <img src="/images/gallery-2-after.webp" width="400" height="300" loading="lazy" alt="After: Class 4 impact resistant Weathered Wood roof system" />
                 <div class="photo-slot-content">
                   <span class="photo-tag">After</span>
                   <span class="photo-desc">🛡️ Class 4 Impact Shingles</span>
@@ -1745,7 +1795,7 @@
             <div class="before-after-pair">
               <div class="photo-slot before-slot">
                 <!-- EDIT IMAGE 3 BEFORE: Replace src with your photo -->
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="Before: Rusted chimney flashing causing interior ceiling leak" />
+                <img src="/images/gallery-3-before.webp" width="400" height="300" loading="lazy" alt="Before: Rusted chimney flashing causing interior ceiling leak" />
                 <div class="photo-slot-content">
                   <span class="photo-tag">Before</span>
                   <span class="photo-desc">📷 Leaking Chimney Step</span>
@@ -1753,7 +1803,7 @@
               </div>
               <div class="photo-slot after-slot">
                 <!-- EDIT IMAGE 3 AFTER: Replace src with your photo -->
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="After: Custom bent aluminum counter-flashing and ice & water shield" />
+                <img src="/images/gallery-3-after.webp" width="400" height="300" loading="lazy" alt="After: Custom bent aluminum counter-flashing and ice & water shield" />
                 <div class="photo-slot-content">
                   <span class="photo-tag">After</span>
                   <span class="photo-desc">🔨 Custom Step Flashing</span>
@@ -1771,7 +1821,7 @@
             <div class="before-after-pair">
               <div class="photo-slot before-slot">
                 <!-- EDIT IMAGE 4 BEFORE: Replace src with your photo -->
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="Before: Faded asphalt roof on modern farmhouse home" />
+                <img src="/images/gallery-4-before.webp" width="400" height="300" loading="lazy" alt="Before: Faded asphalt roof on modern farmhouse home" />
                 <div class="photo-slot-content">
                   <span class="photo-tag">Before</span>
                   <span class="photo-desc">📷 Worn Asphalt Roof</span>
@@ -1779,7 +1829,7 @@
               </div>
               <div class="photo-slot after-slot">
                 <!-- EDIT IMAGE 4 AFTER: Replace src with your photo -->
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="After: Matte black 24-gauge standing seam metal roof" />
+                <img src="/images/gallery-4-after.webp" width="400" height="300" loading="lazy" alt="After: Matte black 24-gauge standing seam metal roof" />
                 <div class="photo-slot-content">
                   <span class="photo-tag">After</span>
                   <span class="photo-desc">✨ Standing Seam Metal</span>
@@ -1797,7 +1847,7 @@
             <div class="before-after-pair">
               <div class="photo-slot before-slot">
                 <!-- EDIT IMAGE 5 BEFORE: Replace src with your photo -->
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="Before: Sagging sectional gutters overflowing with pine needles" />
+                <img src="/images/gallery-5-before.webp" width="400" height="300" loading="lazy" alt="Before: Sagging sectional gutters overflowing with pine needles" />
                 <div class="photo-slot-content">
                   <span class="photo-tag">Before</span>
                   <span class="photo-desc">📷 Sagging 4-Inch Gutters</span>
@@ -1805,7 +1855,7 @@
               </div>
               <div class="photo-slot after-slot">
                 <!-- EDIT IMAGE 5 AFTER: Replace src with your photo -->
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="After: 6-inch seamless aluminum gutters with stainless leaf guards" />
+                <img src="/images/gallery-5-after.webp" width="400" height="300" loading="lazy" alt="After: 6-inch seamless aluminum gutters with stainless leaf guards" />
                 <div class="photo-slot-content">
                   <span class="photo-tag">After</span>
                   <span class="photo-desc">🌧️ 6" Seamless + Guards</span>
@@ -1823,7 +1873,7 @@
             <div class="before-after-pair">
               <div class="photo-slot before-slot">
                 <!-- EDIT IMAGE 6 BEFORE: Replace src with your photo -->
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="Before: Tree limb puncture hole on rear roof slope after windstorm" />
+                <img src="/images/gallery-6-before.webp" width="400" height="300" loading="lazy" alt="Before: Tree limb puncture hole on rear roof slope after windstorm" />
                 <div class="photo-slot-content">
                   <span class="photo-tag">Before</span>
                   <span class="photo-desc">📷 Fallen Limb Puncture</span>
@@ -1831,7 +1881,7 @@
               </div>
               <div class="photo-slot after-slot">
                 <!-- EDIT IMAGE 6 AFTER: Replace src with your photo -->
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" width="400" height="300" alt="After: Structural rafter sistering, new decking, and color-matched shingles" />
+                <img src="/images/gallery-6-after.webp" width="400" height="300" loading="lazy" alt="After: Structural rafter sistering, new decking, and color-matched shingles" />
                 <div class="photo-slot-content">
                   <span class="photo-tag">After</span>
                   <span class="photo-desc">✅ Structural Slope Repair</span>
@@ -1857,7 +1907,7 @@
           <span class="section-kicker">Verified Homeowner Feedback</span>
           <h2 id="reviews-heading" class="section-title">What Our Neighbors Are Saying</h2>
           <p class="section-subtitle">
-            Read real experiences from homeowners who trusted Summit Ridge Roofing with their roof repairs and replacements.
+            Read real experiences from homeowners who trusted <span data-config-name>Summit Ridge Roofing</span> with their roof repairs and replacements.
           </p>
         </div>
 
@@ -1867,7 +1917,7 @@
             <div>
               <div class="review-stars" aria-label="5 out of 5 stars">⭐⭐⭐⭐⭐</div>
               <blockquote class="review-quote">
-                "After a spring hailstorm damaged our roof, Summit Ridge Roofing inspected our shingles the very next day, met with our insurance adjuster, and replaced the entire 2,800 sq. ft. roof in one day. Not a single nail was left in the yard!"
+                "After a spring hailstorm damaged our roof, <span data-config-name>Summit Ridge Roofing</span> inspected our shingles the very next day, met with our insurance adjuster, and replaced the entire 2,800 sq. ft. roof in one day. Not a single nail was left in the yard!"
               </blockquote>
             </div>
             <div class="review-author">
@@ -1881,11 +1931,12 @@
             <div>
               <div class="review-stars" aria-label="5 out of 5 stars">⭐⭐⭐⭐⭐</div>
               <blockquote class="review-quote">
-                "Two other companies told us we needed a whole new roof when water spotted our hallway ceiling. Summit Ridge Roofing showed us drone photos of a cracked vent boot and rusted flashing, fixed both for a fair flat rate, and saved us thousands."
+                "Two other companies told us we needed a whole new roof when water spotted our hallway ceiling. <span data-config-name>Summit Ridge Roofing</span> showed us drone photos of a cracked vent boot and rusted flashing, fixed both for a fair flat rate, and saved us thousands."
               </blockquote>
             </div>
             <div class="review-author">
               <strong>David Morales</strong>
+              <!-- REPLACE: city -->
               <span>Leak &amp; Flashing Repair · Cedar Park</span>
             </div>
           </article>
@@ -1922,9 +1973,10 @@
         </div>
 
         <div class="areas-box">
-          <!-- EDIT SERVICE AREAS: Change the city names below to match your region -->
-          <ul class="areas-grid" aria-label="Service Area Cities">
-            <li class="area-item"><span aria-hidden="true">📍</span> Austin, TX</li>
+          <!-- EDIT SERVICE AREAS: Change the city names in SITE_CONFIG.serviceAreas or below -->
+          <!-- REPLACE: city -->
+          <ul class="areas-grid" id="serviceAreasGrid" aria-label="Service Area Cities">
+            <li class="area-item"><span aria-hidden="true">📍</span> Austin, TX</li><!-- REPLACE: city -->
             <li class="area-item"><span aria-hidden="true">📍</span> Round Rock, TX</li>
             <li class="area-item"><span aria-hidden="true">📍</span> Cedar Park, TX</li>
             <li class="area-item"><span aria-hidden="true">📍</span> Georgetown, TX</li>
@@ -1938,7 +1990,8 @@
             <li class="area-item"><span aria-hidden="true">📍</span> Bee Cave, TX</li>
           </ul>
           <p class="areas-note">
-            Don't see your town listed? Give us a call at <a href="tel:5551234567">(555) 123-4567</a> — we frequently travel for full replacements and storm restoration!
+            <!-- REPLACE: phone -->
+            Don't see your town listed? Give us a call at <a href="tel:5551234567" data-config-phone-link>(555) 123-4567</a> — we frequently travel for full replacements and storm restoration!
           </p>
         </div>
       </div>
@@ -1988,7 +2041,7 @@
               <span class="faq-icon" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer">
-              Most standard US homeowners policies cover sudden, accidental damage caused by hail, windstorms, and fallen trees (minus your policy deductible). Summit Ridge Roofing provides a complimentary photo inspection packet and can meet your insurance adjuster at your property to ensure all storm damage is properly documented.
+              Most standard US homeowners policies cover sudden, accidental damage caused by hail, windstorms, and fallen trees (minus your policy deductible). <span data-config-name>Summit Ridge Roofing</span> provides a complimentary photo inspection packet and can meet your insurance adjuster at your property to ensure all storm damage is properly documented.
             </div>
           </div>
 
@@ -1999,7 +2052,7 @@
               <span class="faq-icon" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer">
-              In addition to the manufacturer's Limited Lifetime Material Warranty on shingles, our Summit Ridge Roofing 10-Year Workmanship Warranty covers installation labor, flashing details, valleys, and ridge vents. If any installation-related leak occurs within 10 years, we repair it at zero cost to you.
+              In addition to the manufacturer's Limited Lifetime Material Warranty on shingles, our <span data-config-name>Summit Ridge Roofing</span> 10-Year Workmanship Warranty covers installation labor, flashing details, valleys, and ridge vents. If any installation-related leak occurs within 10 years, we repair it at zero cost to you.
             </div>
           </div>
 
@@ -2044,7 +2097,8 @@
                 <span aria-hidden="true">📞</span>
                 <div>
                   <strong>Phone (24/7 Emergency Line)</strong>
-                  <a href="tel:5551234567">(555) 123-4567</a>
+                  <!-- REPLACE: phone -->
+                  <a href="tel:5551234567" data-config-phone-link>(555) 123-4567</a>
                 </div>
               </div>
 
@@ -2052,7 +2106,7 @@
                 <span aria-hidden="true">✉️</span>
                 <div>
                   <strong>Email Address</strong>
-                  <a href="mailto:estimates@summitridgeroofing.com">estimates@summitridgeroofing.com</a>
+                  <a href="mailto:estimates@summitridgeroofing.com" data-config-email-link>estimates@summitridgeroofing.com</a>
                 </div>
               </div>
 
@@ -2068,7 +2122,7 @@
                 <span aria-hidden="true">🪪</span>
                 <div>
                   <strong>License &amp; Insurance</strong>
-                  <span>State Contractor License #ROOF-984210<br />Fully Insured ($2M General Liability &amp; Workers' Comp)</span>
+                  <span>State Contractor License #<span data-config-contact-license>ROOF-984210</span><br />Fully Insured ($2M General Liability &amp; Workers' Comp)</span>
                 </div>
               </div>
             </div>
@@ -2174,13 +2228,13 @@
       <div class="footer-grid">
         <div class="footer-col">
           <!-- EDIT BUSINESS NAME: Summit Ridge Roofing -->
-          <h4>Summit Ridge Roofing</h4>
+          <h4 data-config-name>Summit Ridge Roofing</h4>
           <p style="max-width: 380px;">
             Locally owned and operated residential &amp; commercial roofing contractor dedicated to honest inspections, superior craftsmanship, and storm-ready protection.
           </p>
           <!-- EDIT LICENSE NUMBER PLACEHOLDER -->
           <p style="color: #FFFFFF; font-weight: 800; margin-top: 12px;">
-            🪪 License #: STATE-ROOF-984210 (Bonded &amp; Insured)
+            🪪 License #: <span data-config-license>STATE-ROOF-984210</span> (Bonded &amp; Insured)
           </p>
         </div>
 
@@ -2188,9 +2242,10 @@
           <h4>Contact Details</h4>
           <ul>
             <!-- EDIT PHONE & EMAIL -->
-            <li>📞 Phone: <a href="tel:5551234567">(555) 123-4567</a></li>
-            <li>✉️ Email: <a href="mailto:estimates@summitridgeroofing.com">estimates@summitridgeroofing.com</a></li>
-            <li>📍 Office: 1200 Industrial Pkwy, Suite 100</li>
+            <!-- REPLACE: phone -->
+            <li>📞 Phone: <a href="tel:5551234567" data-config-phone-link>(555) 123-4567</a></li>
+            <li>✉️ Email: <a href="mailto:estimates@summitridgeroofing.com" data-config-email-link>estimates@summitridgeroofing.com</a></li>
+            <li>📍 Office: <span data-config-address>1200 Industrial Pkwy, Suite 100</span></li>
           </ul>
         </div>
 
@@ -2206,7 +2261,7 @@
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; <span id="currentYear">2026</span> Summit Ridge Roofing. All rights reserved.</p>
+        <p>&copy; <span id="currentYear">2026</span> <span data-config-name>Summit Ridge Roofing</span>. All rights reserved.</p>
         <p>Licensed · Bonded · Insured · 10-Year Workmanship Warranty</p>
       </div>
     </div>
@@ -2217,15 +2272,116 @@
        ===================================================================== -->
   <div class="mobile-sticky-bar" aria-label="Quick Mobile Actions">
     <!-- EDIT PHONE NUMBER -->
-    <a href="tel:5551234567" class="btn btn-primary">📞 Call Now</a>
+    <!-- REPLACE: phone -->
+    <a href="tel:5551234567" class="btn btn-primary" data-config-phone-href>📞 Call Now</a>
     <a href="#contact" class="btn btn-outline-light">Free Quote</a>
   </div>
 
   <!-- =====================================================================
-       PLAIN JAVASCRIPT: Mobile Menu, Service Pre-Select, FAQ Accordion & Form Validation
+       PLAIN JAVASCRIPT: Config Hydration, Mobile Menu, Service Pre-Select, FAQ Accordion & Form Validation
        ===================================================================== -->
   <script>
     (function () {
+      // 0. Apply Centralized SITE_CONFIG Values Across Page
+      var cfg = window.SITE_CONFIG;
+      if (cfg) {
+        if (cfg.businessName) {
+          document.title = cfg.businessName + ' | Licensed Residential & Commercial Roofing Contractor';
+          var metaDesc = document.querySelector('meta[name="description"]');
+          if (metaDesc && cfg.phoneDisplay) {
+            metaDesc.setAttribute('content', cfg.businessName + ' provides licensed, insured roof repair, full roof replacement, storm damage restoration, and free 21-point inspections. Call ' + cfg.phoneDisplay + ' for a free quote.');
+          }
+          var ogTitle = document.querySelector('meta[property="og:title"]');
+          if (ogTitle) {
+            ogTitle.setAttribute('content', cfg.businessName + ' | Licensed Residential & Commercial Roofing Contractor');
+          }
+          var ogDesc = document.querySelector('meta[property="og:description"]');
+          if (ogDesc && cfg.phoneDisplay) {
+            ogDesc.setAttribute('content', cfg.businessName + ' is a trusted local roofing contractor offering roof repairs, replacements, storm restoration, and a 10-Year Workmanship Warranty. Call ' + cfg.phoneDisplay + '.');
+          }
+          document.querySelectorAll('[data-config-name]').forEach(function (el) {
+            el.textContent = cfg.businessName;
+          });
+          var heroImg = document.querySelector('[data-config-hero-alt]');
+          if (heroImg) {
+            heroImg.setAttribute('alt', cfg.businessName + ' crew installing architectural shingles on a residential home');
+          }
+        }
+
+        var logoEl = document.querySelector('[data-config-logo]');
+        if (logoEl && cfg.logoPrefix && cfg.logoAccent && cfg.logoSuffix) {
+          logoEl.setAttribute('aria-label', (cfg.businessName || 'Home') + ' Home');
+          logoEl.textContent = '';
+          logoEl.appendChild(document.createTextNode(cfg.logoPrefix + '\u00A0'));
+          var accentSpan = document.createElement('span');
+          accentSpan.textContent = cfg.logoAccent;
+          logoEl.appendChild(accentSpan);
+          logoEl.appendChild(document.createTextNode('\u00A0' + cfg.logoSuffix));
+        }
+
+        if (cfg.phoneHref && cfg.phoneDisplay) {
+          var headerCall = document.querySelector('[data-config-header-call]');
+          if (headerCall) {
+            headerCall.setAttribute('href', cfg.phoneHref);
+            var extraSpan = headerCall.querySelector('.call-number-extra');
+            if (extraSpan) {
+              extraSpan.textContent = ' Now: ' + cfg.phoneDisplay;
+            }
+          }
+          document.querySelectorAll('[data-config-phone-btn]').forEach(function (el) {
+            el.setAttribute('href', cfg.phoneHref);
+            el.textContent = '📞 ' + cfg.phoneDisplay;
+          });
+          document.querySelectorAll('[data-config-phone-link]').forEach(function (el) {
+            el.setAttribute('href', cfg.phoneHref);
+            el.textContent = cfg.phoneDisplay;
+          });
+          document.querySelectorAll('[data-config-phone-href]').forEach(function (el) {
+            el.setAttribute('href', cfg.phoneHref);
+          });
+        }
+
+        if (cfg.email) {
+          document.querySelectorAll('[data-config-email-link]').forEach(function (el) {
+            el.setAttribute('href', 'mailto:' + cfg.email);
+            el.textContent = cfg.email;
+          });
+        }
+
+        if (cfg.officeAddress) {
+          document.querySelectorAll('[data-config-address]').forEach(function (el) {
+            el.textContent = cfg.officeAddress;
+          });
+        }
+
+        if (cfg.licenseNumber) {
+          document.querySelectorAll('[data-config-license]').forEach(function (el) {
+            el.textContent = cfg.licenseNumber;
+          });
+        }
+
+        if (cfg.contactLicenseNumber) {
+          document.querySelectorAll('[data-config-contact-license]').forEach(function (el) {
+            el.textContent = cfg.contactLicenseNumber;
+          });
+        }
+
+        var areasGrid = document.getElementById('serviceAreasGrid');
+        if (areasGrid && Array.isArray(cfg.serviceAreas) && cfg.serviceAreas.length > 0) {
+          areasGrid.textContent = '';
+          cfg.serviceAreas.forEach(function (city) {
+            var li = document.createElement('li');
+            li.className = 'area-item';
+            var pin = document.createElement('span');
+            pin.setAttribute('aria-hidden', 'true');
+            pin.textContent = '📍';
+            li.appendChild(pin);
+            li.appendChild(document.createTextNode(' ' + city));
+            areasGrid.appendChild(li);
+          });
+        }
+      }
+
       // 1. Dynamic Footer Year
       var yearSpan = document.getElementById('currentYear');
       if (yearSpan) {

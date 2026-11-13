@@ -1,6 +1,5 @@
 {
-  "name": "EVM Testnet Token Lab",
-  "description": "Educational guide and smart contract studio for developing, compiling, and deploying standard OpenZeppelin ERC-20 tokens on EVM testnets.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "name": "Summit Ridge Roofing",
+  "description": "Responsive single-page US roofing company website template",
+  "requestFramePermissions": []
 }
