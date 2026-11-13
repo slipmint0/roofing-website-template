@@ -867,82 +867,99 @@
       background-color: var(--color-white);
       border: 2px solid var(--color-gray-border);
       border-top: 3px solid var(--color-orange);
-      border-radius: var(--radius-card);
+      border-radius: 16px;
       overflow: hidden;
       box-shadow: var(--shadow-subtle);
     }
 
     .before-after-pair {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       border-bottom: 2px solid var(--color-gray-border);
     }
 
     .photo-slot {
+      appearance: none;
+      font: inherit;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      display: block;
       position: relative;
       aspect-ratio: 4 / 3;
-      min-height: 150px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 12px;
-      text-align: center;
       overflow: hidden;
+      cursor: pointer;
+      text-align: left;
+      background-color: var(--color-navy);
+    }
+
+    .photo-slot:focus-visible {
+      outline: 3px solid var(--color-orange);
+      outline-offset: -3px;
+      z-index: 2;
     }
 
     .photo-slot.before-slot {
       background-color: #E2E8F0;
-      color: #1E293B;
-      border-right: 2px solid var(--color-gray-border);
+      border-bottom: 2px solid var(--color-gray-border);
     }
 
     .photo-slot.after-slot {
       background-color: var(--color-navy);
-      color: var(--color-white);
+    }
+
+    @media (min-width: 640px) {
+      .before-after-pair {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .photo-slot.before-slot {
+        border-bottom: 0;
+        border-right: 2px solid var(--color-gray-border);
+      }
     }
 
     .photo-slot img {
-      position: absolute;
-      inset: 0;
       width: 100%;
       height: 100%;
+      aspect-ratio: 4 / 3;
       object-fit: cover;
-      opacity: 1;
-    }
-
-    .photo-slot-content {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 1;
-      padding: 6px 8px;
-      background-color: rgba(6, 16, 30, 0.88);
-      color: var(--color-white);
-    }
-
-    .photo-tag {
-      font-size: 0.75rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
       display: block;
-      margin-bottom: 2px;
+      transition: transform 0.2s ease;
     }
 
-    .before-slot .photo-tag {
-      color: #CBD5E1;
+    @media (hover: hover) and (pointer: fine) {
+      .photo-slot:hover img {
+        transform: scale(1.03);
+      }
     }
 
-    .after-slot .photo-tag {
-      color: var(--color-orange);
-    }
-
-    .photo-desc {
-      font-size: 0.8125rem;
-      font-weight: 700;
+    .photo-pill {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 900;
+      line-height: 1.25;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      pointer-events: none;
       color: var(--color-white);
+      border: 2px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .before-slot .photo-pill {
+      background-color: var(--color-navy);
+    }
+
+    .after-slot .photo-pill {
+      background-color: var(--color-orange);
     }
 
     .gallery-caption {
@@ -959,6 +976,213 @@
     .gallery-caption p {
       font-size: 0.9375rem;
       color: var(--color-text-muted);
+    }
+
+    /* Gallery Lightbox Modal */
+    .gallery-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1100;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: rgba(6, 16, 30, 0.94);
+      color: var(--color-white);
+      padding:
+        calc(12px + env(safe-area-inset-top, 0px))
+        calc(16px + env(safe-area-inset-right, 0px))
+        calc(16px + env(safe-area-inset-bottom, 0px))
+        calc(16px + env(safe-area-inset-left, 0px));
+      opacity: 0;
+      transition: opacity 0.16s ease;
+    }
+
+    .gallery-lightbox[hidden] {
+      display: none;
+    }
+
+    .gallery-lightbox.is-open {
+      opacity: 1;
+    }
+
+    .lightbox-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      flex-shrink: 0;
+    }
+
+    .lightbox-counter {
+      font-size: 0.9375rem;
+      font-weight: 800;
+      color: #CBD5E1;
+      letter-spacing: 0.04em;
+    }
+
+    .lightbox-close {
+      appearance: none;
+      min-width: 48px;
+      min-height: 48px;
+      padding: 0 14px;
+      border-radius: var(--radius-btn);
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      background-color: var(--color-navy-light);
+      color: var(--color-white);
+      font-family: inherit;
+      font-size: 1.375rem;
+      font-weight: 900;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .lightbox-stage {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 1120px;
+      margin: 12px auto;
+      touch-action: pan-y;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .lightbox-footer {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 640px) {
+      .lightbox-footer {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .lightbox-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    @media (min-width: 640px) {
+      .lightbox-meta {
+        justify-content: flex-start;
+        text-align: left;
+      }
+    }
+
+    .lightbox-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1.25;
+      color: var(--color-white);
+      border: 2px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .lightbox-pill.is-before {
+      background-color: var(--color-navy-light);
+    }
+
+    .lightbox-pill.is-after {
+      background-color: var(--color-orange);
+    }
+
+    .lightbox-title {
+      font-size: 1.0625rem;
+      font-weight: 800;
+      color: var(--color-white);
+      line-height: 1.3;
+    }
+
+    .lightbox-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+    }
+
+    @media (min-width: 640px) {
+      .lightbox-controls {
+        width: auto;
+      }
+    }
+
+    .lightbox-nav-btn {
+      appearance: none;
+      flex: 1 1 0;
+      min-width: 48px;
+      min-height: 48px;
+      padding: 10px 18px;
+      border-radius: var(--radius-btn);
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      background-color: var(--color-navy-light);
+      color: var(--color-white);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    @media (min-width: 640px) {
+      .lightbox-nav-btn {
+        flex: 0 0 auto;
+        min-width: 124px;
+      }
+    }
+
+    .lightbox-close:focus-visible,
+    .lightbox-nav-btn:focus-visible {
+      outline: 3px solid var(--color-orange);
+      outline-offset: 2px;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .lightbox-close:hover,
+      .lightbox-nav-btn:hover {
+        background-color: var(--color-orange);
+        border-color: var(--color-orange);
+      }
     }
 
     /* =====================================================================
@@ -1745,22 +1969,28 @@
           <!-- Project 1 -->
           <article class="gallery-card">
             <div class="before-after-pair">
-              <div class="photo-slot before-slot">
+              <button
+                type="button"
+                class="photo-slot before-slot"
+                data-label="Before"
+                data-title="Full Architectural Replacement"
+                aria-label="Preview Before photo: Full Architectural Replacement"
+              >
                 <!-- EDIT IMAGE 1 BEFORE: Replace src with your photo -->
                 <img src="/images/gallery-1-before.webp" width="400" height="300" loading="lazy" alt="Before: Weathered 22-year-old 3-tab shingle roof with wind creases" />
-                <div class="photo-slot-content">
-                  <span class="photo-tag">Before</span>
-                  <span class="photo-desc">📷 Aged 3-Tab Shingles</span>
-                </div>
-              </div>
-              <div class="photo-slot after-slot">
+                <span class="photo-pill">Before</span>
+              </button>
+              <button
+                type="button"
+                class="photo-slot after-slot"
+                data-label="After"
+                data-title="Full Architectural Replacement"
+                aria-label="Preview After photo: Full Architectural Replacement"
+              >
                 <!-- EDIT IMAGE 1 AFTER: Replace src with your photo -->
                 <img src="/images/gallery-1-after.webp" width="400" height="300" loading="lazy" alt="After: New Charcoal architectural shingles with ridge vents" />
-                <div class="photo-slot-content">
-                  <span class="photo-tag">After</span>
-                  <span class="photo-desc">🏠 Charcoal Architectural</span>
-                </div>
-              </div>
+                <span class="photo-pill">After</span>
+              </button>
             </div>
             <div class="gallery-caption">
               <h3>Full Architectural Replacement</h3>
@@ -1771,22 +2001,28 @@
           <!-- Project 2 -->
           <article class="gallery-card">
             <div class="before-after-pair">
-              <div class="photo-slot before-slot">
+              <button
+                type="button"
+                class="photo-slot before-slot"
+                data-label="Before"
+                data-title="Hail Storm Insurance Restoration"
+                aria-label="Preview Before photo: Hail Storm Insurance Restoration"
+              >
                 <!-- EDIT IMAGE 2 BEFORE: Replace src with your photo -->
                 <img src="/images/gallery-2-before.webp" width="400" height="300" loading="lazy" alt="Before: Hail bruised roof shingles and dented soft metal vents" />
-                <div class="photo-slot-content">
-                  <span class="photo-tag">Before</span>
-                  <span class="photo-desc">📷 Severe Hail Impact</span>
-                </div>
-              </div>
-              <div class="photo-slot after-slot">
+                <span class="photo-pill">Before</span>
+              </button>
+              <button
+                type="button"
+                class="photo-slot after-slot"
+                data-label="After"
+                data-title="Hail Storm Insurance Restoration"
+                aria-label="Preview After photo: Hail Storm Insurance Restoration"
+              >
                 <!-- EDIT IMAGE 2 AFTER: Replace src with your photo -->
                 <img src="/images/gallery-2-after.webp" width="400" height="300" loading="lazy" alt="After: Class 4 impact resistant Weathered Wood roof system" />
-                <div class="photo-slot-content">
-                  <span class="photo-tag">After</span>
-                  <span class="photo-desc">🛡️ Class 4 Impact Shingles</span>
-                </div>
-              </div>
+                <span class="photo-pill">After</span>
+              </button>
             </div>
             <div class="gallery-caption">
               <h3>Hail Storm Insurance Restoration</h3>
@@ -1797,22 +2033,28 @@
           <!-- Project 3 -->
           <article class="gallery-card">
             <div class="before-after-pair">
-              <div class="photo-slot before-slot">
+              <button
+                type="button"
+                class="photo-slot before-slot"
+                data-label="Before"
+                data-title="Chimney Flashing &amp; Valley Rebuild"
+                aria-label="Preview Before photo: Chimney Flashing and Valley Rebuild"
+              >
                 <!-- EDIT IMAGE 3 BEFORE: Replace src with your photo -->
                 <img src="/images/gallery-3-before.webp" width="400" height="300" loading="lazy" alt="Before: Rusted chimney flashing causing interior ceiling leak" />
-                <div class="photo-slot-content">
-                  <span class="photo-tag">Before</span>
-                  <span class="photo-desc">📷 Leaking Chimney Step</span>
-                </div>
-              </div>
-              <div class="photo-slot after-slot">
+                <span class="photo-pill">Before</span>
+              </button>
+              <button
+                type="button"
+                class="photo-slot after-slot"
+                data-label="After"
+                data-title="Chimney Flashing &amp; Valley Rebuild"
+                aria-label="Preview After photo: Chimney Flashing and Valley Rebuild"
+              >
                 <!-- EDIT IMAGE 3 AFTER: Replace src with your photo -->
                 <img src="/images/gallery-3-after.webp" width="400" height="300" loading="lazy" alt="After: Custom bent aluminum counter-flashing and ice & water shield" />
-                <div class="photo-slot-content">
-                  <span class="photo-tag">After</span>
-                  <span class="photo-desc">🔨 Custom Step Flashing</span>
-                </div>
-              </div>
+                <span class="photo-pill">After</span>
+              </button>
             </div>
             <div class="gallery-caption">
               <h3>Chimney Flashing &amp; Valley Rebuild</h3>
@@ -1823,22 +2065,28 @@
           <!-- Project 4 -->
           <article class="gallery-card">
             <div class="before-after-pair">
-              <div class="photo-slot before-slot">
+              <button
+                type="button"
+                class="photo-slot before-slot"
+                data-label="Before"
+                data-title="24-Gauge Standing Seam Metal Roof"
+                aria-label="Preview Before photo: 24-Gauge Standing Seam Metal Roof"
+              >
                 <!-- EDIT IMAGE 4 BEFORE: Replace src with your photo -->
                 <img src="/images/gallery-4-before.webp" width="400" height="300" loading="lazy" alt="Before: Faded asphalt roof on modern farmhouse home" />
-                <div class="photo-slot-content">
-                  <span class="photo-tag">Before</span>
-                  <span class="photo-desc">📷 Worn Asphalt Roof</span>
-                </div>
-              </div>
-              <div class="photo-slot after-slot">
+                <span class="photo-pill">Before</span>
+              </button>
+              <button
+                type="button"
+                class="photo-slot after-slot"
+                data-label="After"
+                data-title="24-Gauge Standing Seam Metal Roof"
+                aria-label="Preview After photo: 24-Gauge Standing Seam Metal Roof"
+              >
                 <!-- EDIT IMAGE 4 AFTER: Replace src with your photo -->
                 <img src="/images/gallery-4-after.webp" width="400" height="300" loading="lazy" alt="After: Matte black 24-gauge standing seam metal roof" />
-                <div class="photo-slot-content">
-                  <span class="photo-tag">After</span>
-                  <span class="photo-desc">✨ Standing Seam Metal</span>
-                </div>
-              </div>
+                <span class="photo-pill">After</span>
+              </button>
             </div>
             <div class="gallery-caption">
               <h3>24-Gauge Standing Seam Metal Roof</h3>
@@ -1849,22 +2097,28 @@
           <!-- Project 5 -->
           <article class="gallery-card">
             <div class="before-after-pair">
-              <div class="photo-slot before-slot">
+              <button
+                type="button"
+                class="photo-slot before-slot"
+                data-label="Before"
+                data-title="6-Inch Seamless Gutters &amp; Guards"
+                aria-label="Preview Before photo: 6-Inch Seamless Gutters and Guards"
+              >
                 <!-- EDIT IMAGE 5 BEFORE: Replace src with your photo -->
                 <img src="/images/gallery-5-before.webp" width="400" height="300" loading="lazy" alt="Before: Sagging sectional gutters overflowing with pine needles" />
-                <div class="photo-slot-content">
-                  <span class="photo-tag">Before</span>
-                  <span class="photo-desc">📷 Sagging 4-Inch Gutters</span>
-                </div>
-              </div>
-              <div class="photo-slot after-slot">
+                <span class="photo-pill">Before</span>
+              </button>
+              <button
+                type="button"
+                class="photo-slot after-slot"
+                data-label="After"
+                data-title="6-Inch Seamless Gutters &amp; Guards"
+                aria-label="Preview After photo: 6-Inch Seamless Gutters and Guards"
+              >
                 <!-- EDIT IMAGE 5 AFTER: Replace src with your photo -->
                 <img src="/images/gallery-5-after.webp" width="400" height="300" loading="lazy" alt="After: 6-inch seamless aluminum gutters with stainless leaf guards" />
-                <div class="photo-slot-content">
-                  <span class="photo-tag">After</span>
-                  <span class="photo-desc">🌧️ 6" Seamless + Guards</span>
-                </div>
-              </div>
+                <span class="photo-pill">After</span>
+              </button>
             </div>
             <div class="gallery-caption">
               <h3>6-Inch Seamless Gutters &amp; Guards</h3>
@@ -1875,28 +2129,85 @@
           <!-- Project 6 -->
           <article class="gallery-card">
             <div class="before-after-pair">
-              <div class="photo-slot before-slot">
+              <button
+                type="button"
+                class="photo-slot before-slot"
+                data-label="Before"
+                data-title="Emergency Tarping &amp; Decking Repair"
+                aria-label="Preview Before photo: Emergency Tarping and Decking Repair"
+              >
                 <!-- EDIT IMAGE 6 BEFORE: Replace src with your photo -->
                 <img src="/images/gallery-6-before.webp" width="400" height="300" loading="lazy" alt="Before: Tree limb puncture hole on rear roof slope after windstorm" />
-                <div class="photo-slot-content">
-                  <span class="photo-tag">Before</span>
-                  <span class="photo-desc">📷 Fallen Limb Puncture</span>
-                </div>
-              </div>
-              <div class="photo-slot after-slot">
+                <span class="photo-pill">Before</span>
+              </button>
+              <button
+                type="button"
+                class="photo-slot after-slot"
+                data-label="After"
+                data-title="Emergency Tarping &amp; Decking Repair"
+                aria-label="Preview After photo: Emergency Tarping and Decking Repair"
+              >
                 <!-- EDIT IMAGE 6 AFTER: Replace src with your photo -->
                 <img src="/images/gallery-6-after.webp" width="400" height="300" loading="lazy" alt="After: Structural rafter sistering, new decking, and color-matched shingles" />
-                <div class="photo-slot-content">
-                  <span class="photo-tag">After</span>
-                  <span class="photo-desc">✅ Structural Slope Repair</span>
-                </div>
-              </div>
+                <span class="photo-pill">After</span>
+              </button>
             </div>
             <div class="gallery-caption">
               <h3>Emergency Tarping &amp; Decking Repair</h3>
               <p>Same-night emergency dry-in followed by structural rafter and shingle restoration.</p>
             </div>
           </article>
+        </div>
+      </div>
+
+      <!-- Gallery Image Preview Lightbox -->
+      <div
+        id="galleryLightbox"
+        class="gallery-lightbox"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="lightboxTitle"
+        hidden
+      >
+        <div class="lightbox-topbar">
+          <span id="lightboxCounter" class="lightbox-counter" aria-live="polite">1 / 12</span>
+          <button
+            type="button"
+            id="lightboxCloseBtn"
+            class="lightbox-close"
+            aria-label="Close image preview"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div id="lightboxStage" class="lightbox-stage">
+          <img id="lightboxImg" class="lightbox-img" src="" alt="" />
+        </div>
+
+        <div class="lightbox-footer">
+          <div class="lightbox-meta">
+            <span id="lightboxPill" class="lightbox-pill is-before">Before</span>
+            <h3 id="lightboxTitle" class="lightbox-title">Project Preview</h3>
+          </div>
+          <div class="lightbox-controls">
+            <button
+              type="button"
+              id="lightboxPrevBtn"
+              class="lightbox-nav-btn"
+              aria-label="Previous gallery image"
+            >
+              ‹ Previous
+            </button>
+            <button
+              type="button"
+              id="lightboxNextBtn"
+              class="lightbox-nav-btn"
+              aria-label="Next gallery image"
+            >
+              Next ›
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -2536,6 +2847,204 @@
             quoteForm.reset();
           } else {
             successBanner.classList.remove('visible');
+          }
+        });
+      }
+
+      // 6. Gallery Before & After Lightbox Preview
+      var galleryTriggers = Array.prototype.slice.call(document.querySelectorAll('#gallery .photo-slot'));
+      var lightbox = document.getElementById('galleryLightbox');
+      var lightboxStage = document.getElementById('lightboxStage');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var lightboxPill = document.getElementById('lightboxPill');
+      var lightboxTitle = document.getElementById('lightboxTitle');
+      var lightboxCounter = document.getElementById('lightboxCounter');
+      var lightboxCloseBtn = document.getElementById('lightboxCloseBtn');
+      var lightboxPrevBtn = document.getElementById('lightboxPrevBtn');
+      var lightboxNextBtn = document.getElementById('lightboxNextBtn');
+
+      if (
+        galleryTriggers.length > 0 &&
+        lightbox &&
+        lightboxStage &&
+        lightboxImg &&
+        lightboxPill &&
+        lightboxTitle &&
+        lightboxCounter &&
+        lightboxCloseBtn &&
+        lightboxPrevBtn &&
+        lightboxNextBtn
+      ) {
+        var currentLightboxIndex = 0;
+        var lastTriggerEl = null;
+        var savedScrollY = 0;
+        var isLightboxOpen = false;
+        var closeFadeTimer = null;
+        var touchStartX = 0;
+        var touchStartY = 0;
+
+        function prefersReducedMotion() {
+          return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        }
+
+        function lockBodyScroll() {
+          savedScrollY = window.scrollY || window.pageYOffset || 0;
+          document.body.style.position = 'fixed';
+          document.body.style.top = '-' + savedScrollY + 'px';
+          document.body.style.left = '0';
+          document.body.style.right = '0';
+          document.body.style.width = '100%';
+          document.body.style.overflow = 'hidden';
+        }
+
+        function unlockBodyScroll() {
+          document.body.style.position = '';
+          document.body.style.top = '';
+          document.body.style.left = '';
+          document.body.style.right = '';
+          document.body.style.width = '';
+          document.body.style.overflow = '';
+
+          document.documentElement.style.scrollBehavior = 'auto';
+          window.scrollTo(0, savedScrollY);
+          document.documentElement.style.scrollBehavior = '';
+        }
+
+        function showSlide(index) {
+          var total = galleryTriggers.length;
+          currentLightboxIndex = (index + total) % total;
+
+          var trigger = galleryTriggers[currentLightboxIndex];
+          var thumbImg = trigger.querySelector('img');
+          var label = trigger.getAttribute('data-label') || 'Before';
+          var title = trigger.getAttribute('data-title') || '';
+
+          if (thumbImg) {
+            lightboxImg.src = thumbImg.getAttribute('src') || '';
+            lightboxImg.alt = thumbImg.getAttribute('alt') || '';
+          }
+
+          lightboxPill.textContent = label;
+          lightboxPill.classList.toggle('is-after', label.toLowerCase() === 'after');
+          lightboxPill.classList.toggle('is-before', label.toLowerCase() !== 'after');
+          lightboxTitle.textContent = title;
+          lightboxCounter.textContent = (currentLightboxIndex + 1) + ' / ' + total;
+        }
+
+        function openLightbox(index, triggerEl) {
+          if (closeFadeTimer) {
+            clearTimeout(closeFadeTimer);
+            closeFadeTimer = null;
+          }
+
+          if (!isLightboxOpen) {
+            isLightboxOpen = true;
+            lastTriggerEl = triggerEl || galleryTriggers[index];
+            lockBodyScroll();
+            lightbox.hidden = false;
+          }
+
+          showSlide(index);
+
+          if (prefersReducedMotion()) {
+            lightbox.classList.add('is-open');
+          } else {
+            window.requestAnimationFrame(function () {
+              lightbox.classList.add('is-open');
+            });
+          }
+
+          lightboxCloseBtn.focus({ preventScroll: true });
+        }
+
+        function finishCloseLightbox() {
+          lightbox.hidden = true;
+          lightboxImg.removeAttribute('src');
+          lightboxImg.alt = '';
+          unlockBodyScroll();
+
+          if (lastTriggerEl && typeof lastTriggerEl.focus === 'function') {
+            lastTriggerEl.focus({ preventScroll: true });
+          }
+          lastTriggerEl = null;
+          closeFadeTimer = null;
+        }
+
+        function closeLightbox() {
+          if (!isLightboxOpen) return;
+          isLightboxOpen = false;
+          lightbox.classList.remove('is-open');
+
+          if (prefersReducedMotion()) {
+            finishCloseLightbox();
+          } else {
+            closeFadeTimer = window.setTimeout(finishCloseLightbox, 160);
+          }
+        }
+
+        galleryTriggers.forEach(function (trigger, index) {
+          trigger.addEventListener('click', function () {
+            openLightbox(index, trigger);
+          });
+        });
+
+        lightboxCloseBtn.addEventListener('click', closeLightbox);
+
+        lightboxPrevBtn.addEventListener('click', function () {
+          showSlide(currentLightboxIndex - 1);
+        });
+
+        lightboxNextBtn.addEventListener('click', function () {
+          showSlide(currentLightboxIndex + 1);
+        });
+
+        lightbox.addEventListener('click', function (e) {
+          if (e.target === lightbox || e.target === lightboxStage) {
+            closeLightbox();
+          }
+        });
+
+        lightboxStage.addEventListener('touchstart', function (e) {
+          if (e.touches && e.touches.length === 1) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+          }
+        }, { passive: true });
+
+        lightboxStage.addEventListener('touchend', function (e) {
+          if (!isLightboxOpen || !e.changedTouches || e.changedTouches.length === 0) return;
+          var dx = e.changedTouches[0].clientX - touchStartX;
+          var dy = e.changedTouches[0].clientY - touchStartY;
+          if (Math.abs(dx) >= 45 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+            if (dx < 0) {
+              showSlide(currentLightboxIndex + 1);
+            } else {
+              showSlide(currentLightboxIndex - 1);
+            }
+          }
+        }, { passive: true });
+
+        document.addEventListener('keydown', function (e) {
+          if (!isLightboxOpen) return;
+
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            closeLightbox();
+          } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            showSlide(currentLightboxIndex - 1);
+          } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            showSlide(currentLightboxIndex + 1);
+          } else if (e.key === 'Tab') {
+            var focusables = [lightboxCloseBtn, lightboxPrevBtn, lightboxNextBtn];
+            var activeIdx = focusables.indexOf(document.activeElement);
+            e.preventDefault();
+            if (e.shiftKey) {
+              focusables[(activeIdx <= 0 ? focusables.length - 1 : activeIdx - 1)].focus();
+            } else {
+              focusables[(activeIdx === -1 || activeIdx === focusables.length - 1 ? 0 : activeIdx + 1)].focus();
+            }
           }
         });
       }
