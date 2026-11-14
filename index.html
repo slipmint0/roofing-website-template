@@ -1907,6 +1907,12 @@
       display: block;
     }
 
+    .form-success-banner.is-error {
+      background-color: #FEF2F2;
+      color: var(--color-error-text);
+      border-color: var(--color-error-text);
+    }
+
     /* =====================================================================
        10. FOOTER SECTION
        MOBILE UPDATE: 48px touch targets on links & overflow-wrap safety
@@ -2785,6 +2791,18 @@
           <!-- Right Column: Validated Estimate Form -->
           <div class="contact-form-card">
             <form id="quoteForm" novalidate>
+              <input type="hidden" name="access_key" value="90b1f2b4-f648-457b-a1d1-4840a04653e9" />
+              <input type="hidden" name="subject" value="New Roofing Quote Request" />
+              <input type="hidden" name="from_name" value="Summit Ridge Roofing Website" />
+              <input
+                type="checkbox"
+                name="botcheck"
+                tabindex="-1"
+                autocomplete="off"
+                aria-hidden="true"
+                style="display: none;"
+              />
+
               <div class="form-grid">
                 <div class="form-grid-two">
                   <div class="form-group">
@@ -2792,7 +2810,7 @@
                     <input
                       type="text"
                       id="fullName"
-                      name="fullName"
+                      name="name"
                       class="form-control"
                       placeholder="Jane Smith"
                       required
@@ -2833,7 +2851,7 @@
 
                   <div class="form-group">
                     <label for="serviceType">Service Needed *</label>
-                    <select id="serviceType" name="serviceType" class="form-control" required>
+                    <select id="serviceType" name="service" class="form-control" required>
                       <option value="">Select a service...</option>
                       <option value="Roof Repair">Roof Repair</option>
                       <option value="Roof Replacement">Roof Replacement</option>
@@ -2857,12 +2875,12 @@
                   ></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                <button type="submit" id="quoteSubmitBtn" class="btn btn-primary" style="width: 100%;">
                   Request My Free Quote
                 </button>
               </div>
 
-              <!-- Confirmation Banner Shown After Valid Submit -->
+              <!-- Status Banner Shown After Submit -->
               <div id="formSuccessBanner" class="form-success-banner" role="status" aria-live="polite">
                 ✅ Thanks, we'll call you soon!
               </div>
@@ -3137,8 +3155,9 @@
         });
       });
 
-      // 5. Front-End Contact Form Validation
+      // 5. Front-End Contact Form Validation & Web3Forms Submission
       var quoteForm = document.getElementById('quoteForm');
+      var quoteSubmitBtn = document.getElementById('quoteSubmitBtn');
       var fullName = document.getElementById('fullName');
       var phone = document.getElementById('phone');
       var email = document.getElementById('email');
@@ -3160,6 +3179,8 @@
       }
 
       if (quoteForm) {
+        var defaultBtnText = quoteSubmitBtn ? quoteSubmitBtn.textContent.trim() : 'Request My Free Quote';
+
         quoteForm.addEventListener('submit', function (e) {
           e.preventDefault();
           var isValid = true;
@@ -3200,12 +3221,51 @@
             setFieldError(serviceSelect, serviceError, false);
           }
 
-          if (isValid) {
-            successBanner.classList.add('visible');
-            quoteForm.reset();
-          } else {
-            successBanner.classList.remove('visible');
+          successBanner.classList.remove('visible', 'is-error');
+
+          if (!isValid) {
+            return;
           }
+
+          if (quoteSubmitBtn) {
+            quoteSubmitBtn.disabled = true;
+            quoteSubmitBtn.textContent = 'Sending...';
+          }
+
+          var formData = new FormData(quoteForm);
+
+          fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+          })
+            .then(function (response) {
+              return response.json().then(function (data) {
+                return { ok: response.ok, data: data };
+              });
+            })
+            .then(function (result) {
+              if (result.ok && result.data && result.data.success === true) {
+                successBanner.classList.remove('is-error');
+                successBanner.textContent = "✅ Thanks, we'll call you soon!";
+                successBanner.classList.add('visible');
+                quoteForm.reset();
+              } else {
+                successBanner.classList.add('is-error');
+                successBanner.textContent = 'Something went wrong. Please call us at (555) 123-4567.';
+                successBanner.classList.add('visible');
+              }
+            })
+            .catch(function () {
+              successBanner.classList.add('is-error');
+              successBanner.textContent = 'Something went wrong. Please call us at (555) 123-4567.';
+              successBanner.classList.add('visible');
+            })
+            .finally(function () {
+              if (quoteSubmitBtn) {
+                quoteSubmitBtn.disabled = false;
+                quoteSubmitBtn.textContent = defaultBtnText;
+              }
+            });
         });
       }
 
