@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-M2W3NMMZ');</script>
+  <!-- End Google Tag Manager -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#06101E" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PPRS4F2R"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-  </script>
 
   <!-- =====================================================================
        EDIT BUSINESS INFO: Change Title & Meta Description for SEO
@@ -2021,6 +2022,10 @@
   </style>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2W3NMMZ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- =====================================================================
@@ -3245,6 +3250,8 @@
             })
             .then(function (result) {
               if (result.ok && result.data && result.data.success === true) {
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({ event: "quote_form_submit" });
                 successBanner.classList.remove('is-error');
                 successBanner.textContent = "✅ Thanks, we'll call you soon!";
                 successBanner.classList.add('visible');
@@ -3268,6 +3275,14 @@
             });
         });
       }
+
+      document.addEventListener('click', function (e) {
+        var phoneLink = e.target && e.target.closest ? e.target.closest('a[href^="tel:"]') : null;
+        if (phoneLink) {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: "call_click" });
+        }
+      });
 
       // 6. Gallery Before & After Lightbox Preview
       var galleryTriggers = Array.prototype.slice.call(document.querySelectorAll('#gallery .photo-slot'));
