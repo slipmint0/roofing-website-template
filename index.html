@@ -19,15 +19,14 @@
        ===================================================================== -->
   <title>Sooner Roof Quotes | Free Roofing Quotes in Oklahoma City</title>
   <!-- REPLACE: phone -->
-  <meta name="description" content="Get free roofing quotes in Oklahoma City from trusted local roofers via Sooner Roof Quotes. Call [YOUR PHONE, e.g. (405) 555-0142] today." />
+  <meta name="description" content="Get free roofing quotes in Oklahoma City from trusted local roofers via Sooner Roof Quotes. Request your free quote online." />
   <meta name="robots" content="index, follow" />
   <!-- REPLACE: url -->
   <link rel="canonical" href="https://roofing-website-template-nu.vercel.app/" />
 
   <meta property="og:site_name" content="Sooner Roof Quotes" />
   <meta property="og:title" content="Sooner Roof Quotes | Free Roofing Quotes in Oklahoma City" />
-  <!-- REPLACE: phone -->
-  <meta property="og:description" content="Get free roofing quotes in Oklahoma City from trusted local roofers via Sooner Roof Quotes. Call [YOUR PHONE, e.g. (405) 555-0142] today." />
+  <meta property="og:description" content="Get free roofing quotes in Oklahoma City from trusted local roofers via Sooner Roof Quotes. Request your free quote online." />
   <meta property="og:type" content="website" />
   <!-- REPLACE: url -->
   <meta property="og:url" content="https://roofing-website-template-nu.vercel.app/" />
@@ -37,14 +36,13 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Sooner Roof Quotes | Free Roofing Quotes in Oklahoma City" />
-  <!-- REPLACE: phone -->
-  <meta name="twitter:description" content="Get free roofing quotes in Oklahoma City from trusted local roofers via Sooner Roof Quotes. Call [YOUR PHONE, e.g. (405) 555-0142] today." />
+  <meta name="twitter:description" content="Get free roofing quotes in Oklahoma City from trusted local roofers via Sooner Roof Quotes. Request your free quote online." />
   <!-- REPLACE: url -->
   <meta name="twitter:image" content="https://roofing-website-template-nu.vercel.app/images/hero-roofing-crew.webp" />
 
   <!-- =====================================================================
        CENTRALIZED SITE CONFIGURATION (EDIT HERE IN ONE PLACE)
-       Updating these values automatically updates the brand name, phone,
+       Updating these values automatically updates the brand name,
        email, and service-area cities page-wide.
        ===================================================================== -->
   <script>
@@ -53,8 +51,6 @@
       logoPrefix: 'Sooner',
       logoAccent: 'Roof',
       logoSuffix: 'Quotes',
-      phoneDisplay: '[YOUR PHONE, e.g. (405) 555-0142]', // REPLACE: phone
-      phoneHref: 'tel:4055550142', // REPLACE: phone
       email: 'roofquotes.inbox@outlook.com',
       primaryCity: 'Oklahoma City, OK', // REPLACE: city
       serviceAreas: [ // REPLACE: city
@@ -85,7 +81,6 @@
       "name": "Sooner Roof Quotes",
       "url": "https://roofing-website-template-nu.vercel.app/",
       "image": "https://roofing-website-template-nu.vercel.app/images/hero-roofing-crew.webp",
-      "telephone": "[YOUR PHONE, e.g. (405) 555-0142]",
       "email": "roofquotes.inbox@outlook.com",
       "areaServed": [
         { "@type": "City", "name": "Oklahoma City, OK" },
@@ -101,7 +96,7 @@
         { "@type": "City", "name": "Piedmont, OK" },
         { "@type": "City", "name": "Newcastle, OK" }
       ],
-      "hoursSpecification": "Mon – Sat: 7:00 AM – 6:00 PM. For emergencies, call anytime.",
+      "hoursSpecification": "Mon – Sat: 7:00 AM – 6:00 PM. Emergency requests are prioritized by form and email.",
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Roofing Quote Services",
@@ -201,7 +196,7 @@
           "name": "Do I need to be home for a quote visit or roofing work?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Your roofer will let you know whether you need to be home for the initial exterior assessment or during installation day. If you have urgent questions or storm damage, call [YOUR PHONE, e.g. (405) 555-0142] anytime."
+            "text": "Your roofer will let you know whether you need to be home for the initial exterior assessment or during installation day. If you have urgent questions or storm damage, email us at roofquotes.inbox@outlook.com."
           }
         }
       ]
@@ -223,7 +218,6 @@
       var cfg = window.SITE_CONFIG || {};
       var siteUrl = 'https://roofing-website-template-nu.vercel.app/';
       var businessName = cfg.businessName || 'Sooner Roof Quotes';
-      var telephone = cfg.phoneDisplay || '[YOUR PHONE, e.g. (405) 555-0142]';
       var email = cfg.email || 'roofquotes.inbox@outlook.com';
       var areas = Array.isArray(cfg.serviceAreas) && cfg.serviceAreas.length > 0
         ? cfg.serviceAreas
@@ -235,12 +229,11 @@
         name: businessName,
         url: siteUrl,
         image: siteUrl + 'images/hero-roofing-crew.webp',
-        telephone: telephone,
         email: email,
         areaServed: areas.map(function (city) {
           return { '@type': 'City', name: city };
         }),
-        hoursSpecification: 'Mon – Sat: 7:00 AM – 6:00 PM. For emergencies, call anytime.',
+        hoursSpecification: 'Mon – Sat: 7:00 AM – 6:00 PM. Emergency requests are prioritized by form and email.',
         hasOfferCatalog: {
           '@type': 'OfferCatalog',
           name: 'Roofing Quote Services',
@@ -338,7 +331,7 @@
             name: 'Do I need to be home for a quote visit or roofing work?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Your roofer will let you know whether you need to be home for the initial exterior assessment or during installation day. If you have urgent questions or storm damage, call ' + telephone + ' anytime.'
+              text: 'Your roofer will let you know whether you need to be home for the initial exterior assessment or during installation day. If you have urgent questions or storm damage, email us at roofquotes.inbox@outlook.com.'
             }
           }
         ]
@@ -2017,13 +2010,8 @@
         </ul>
       </nav>
 
-      <!-- EDIT PHONE NUMBER: Update tel:4055550142 and display text -->
-      <!-- REPLACE: phone -->
-      <!-- MOBILE UPDATE: Shows "📞 Call" under 768px; hides phone number text in a span with display: none on mobile -->
       <div class="header-actions">
-        <a href="tel:4055550142" class="btn btn-primary header-call-btn" data-config-header-call>
-          📞 Call<span class="call-number-extra"> Now: [YOUR PHONE, e.g. (405) 555-0142]</span>
-        </a>
+        <a href="#contact" class="btn btn-primary header-call-btn">Get a Free Quote</a>
         <button
           type="button"
           class="mobile-menu-btn"
@@ -2070,9 +2058,6 @@
 
           <div class="hero-cta-group">
             <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
-            <!-- EDIT PHONE NUMBER -->
-            <!-- REPLACE: phone -->
-            <a href="tel:4055550142" class="btn btn-outline-light" data-config-phone-btn>📞 [YOUR PHONE, e.g. (405) 555-0142]</a>
           </div>
 
           <!-- Trust Badges (Unboxed clean layout with emojis) -->
@@ -2250,7 +2235,7 @@
           <div class="why-card">
             <span class="why-emoji" aria-hidden="true">⚡</span>
             <h3>Same-Day Quote Response</h3>
-            <p>We review your request promptly and connect you with an available local roofer the same business day—plus phone support for emergencies.</p>
+            <p>We review your request promptly and connect you with an available local roofer the same business day. Emergency requests are prioritized by form and email.</p>
           </div>
 
           <div class="why-card">
@@ -2541,12 +2526,12 @@
             <div>
               <div class="review-stars" aria-hidden="true">1️⃣ Tell Us About Your Roof</div>
               <p class="review-quote">
-                Fill out our short quote form or call us to share your roof issue, the service you need, and your neighborhood in the Oklahoma City area.
+                Fill out our short quote form or email us to share your roof issue, the service you need, and your neighborhood in the Oklahoma City area.
               </p>
             </div>
             <div class="review-author">
               <strong>1) Tell us about your roof</strong>
-              <span>Quick online request or phone call</span>
+              <span>Quick online request or email</span>
             </div>
           </article>
 
@@ -2612,8 +2597,7 @@
             <li class="area-item"><span aria-hidden="true">📍</span> Newcastle, OK</li>
           </ul>
           <p class="areas-note">
-            <!-- REPLACE: phone -->
-            Don't see your town listed? Give us a call at <a href="tel:4055550142" data-config-phone-link>[YOUR PHONE, e.g. (405) 555-0142]</a> — we connect homeowners across surrounding Oklahoma City communities too!
+            Don't see your town listed? Send us a request or email us. We connect homeowners across surrounding Oklahoma City communities too!
           </p>
         </div>
       </div>
@@ -2685,7 +2669,7 @@
               <span class="faq-icon" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer">
-              Your roofer will let you know whether you need to be home for an exterior roof assessment or on installation day, and can coordinate vehicle or pet precautions ahead of time. For urgent storm damage or questions, call <a href="tel:4055550142" data-config-phone-link>[YOUR PHONE, e.g. (405) 555-0142]</a> anytime.
+              Your roofer will let you know whether you need to be home for an exterior roof assessment or on installation day, and can coordinate vehicle or pet precautions ahead of time. For urgent storm damage or questions, email us at <a href="mailto:roofquotes.inbox@outlook.com" data-config-email-link>roofquotes.inbox@outlook.com</a>.
             </div>
           </div>
         </div>
@@ -2701,29 +2685,20 @@
           <span class="section-kicker">Free No-Obligation Quote</span>
           <h2 id="contact-heading" class="section-title">Request Your Free Roof Quote</h2>
           <p class="section-subtitle">
-            Fill out the form and a local roofer will contact you. We respond to quote requests the same business day. For emergencies, call us.
+            Fill out the form and a local roofer will contact you. We respond to quote requests the same business day. Emergency requests are prioritized by form and email.
           </p>
         </div>
 
         <div class="contact-grid">
           <!-- Left Column: Direct Contact Info -->
           <aside class="contact-info-box" aria-label="Direct Contact Information">
-            <h3>Prefer to Talk? Call Us</h3>
+            <h3>Prefer Email?</h3>
             <p>
-              Have an urgent roof leak or want to request a free quote by phone? Reach out directly:
+              Have a roof issue or want to request a free quote? Email us directly:
             </p>
 
             <!-- EDIT CONTACT DETAILS BELOW -->
             <div class="contact-detail-list">
-              <div class="contact-detail-item">
-                <span aria-hidden="true">📞</span>
-                <div>
-                  <strong>Phone</strong>
-                  <!-- REPLACE: phone -->
-                  <a href="tel:4055550142" data-config-phone-link>[YOUR PHONE, e.g. (405) 555-0142]</a>
-                </div>
-              </div>
-
               <div class="contact-detail-item">
                 <span aria-hidden="true">✉️</span>
                 <div>
@@ -2736,7 +2711,7 @@
                 <span aria-hidden="true">🕒</span>
                 <div>
                   <strong>Hours</strong>
-                  <span>Mon – Sat: 7:00 AM – 6:00 PM. For emergencies, call anytime.</span>
+                  <span>Mon – Sat: 7:00 AM – 6:00 PM. Emergency requests are prioritized by form and email.</span>
                 </div>
               </div>
             </div>
@@ -2836,7 +2811,7 @@
 
               <!-- Status Banner Shown After Submit -->
               <div id="formSuccessBanner" class="form-success-banner" role="status" aria-live="polite">
-                ✅ Thanks, we'll call you soon!
+                ✅ Thanks, we'll be in touch shortly.
               </div>
             </form>
           </div>
@@ -2847,7 +2822,7 @@
 
   <!-- =====================================================================
        10. FOOTER SECTION
-       EDIT FOOTER PHONE, EMAIL, AND HOURS BELOW
+       EDIT FOOTER EMAIL AND HOURS BELOW
        ===================================================================== -->
   <footer class="site-footer">
     <div class="container">
@@ -2866,9 +2841,7 @@
         <div class="footer-col">
           <h2>Contact Details</h2>
           <ul>
-            <!-- EDIT PHONE & EMAIL -->
-            <!-- REPLACE: phone -->
-            <li>📞 Phone: <a href="tel:4055550142" data-config-phone-link>[YOUR PHONE, e.g. (405) 555-0142]</a></li>
+            <!-- EDIT EMAIL -->
             <li>✉️ Email: <a href="mailto:roofquotes.inbox@outlook.com" data-config-email-link>roofquotes.inbox@outlook.com</a></li>
             <li>📍 Service Area: Oklahoma City Metro, OK</li>
           </ul>
@@ -2878,7 +2851,7 @@
           <h2>Hours</h2>
           <ul>
             <!-- EDIT BUSINESS HOURS -->
-            <li>Mon – Sat: 7:00 AM – 6:00 PM. For emergencies, call anytime.</li>
+            <li>Mon – Sat: 7:00 AM – 6:00 PM. Emergency requests are prioritized by form and email.</li>
           </ul>
         </div>
       </div>
@@ -2894,10 +2867,7 @@
        STICKY MOBILE BAR (Visible on Mobile Screens)
        ===================================================================== -->
   <div class="mobile-sticky-bar" aria-label="Quick Mobile Actions">
-    <!-- EDIT PHONE NUMBER -->
-    <!-- REPLACE: phone -->
-    <a href="tel:4055550142" class="btn btn-primary" data-config-phone-href>📞 Call Now</a>
-    <a href="#contact" class="btn btn-outline-light">Free Quote</a>
+    <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
   </div>
 
   <!-- =====================================================================
@@ -2911,9 +2881,7 @@
         if (cfg.businessName) {
           var seoTitle = cfg.businessName + ' | Free Roofing Quotes in Oklahoma City';
           document.title = seoTitle;
-          var seoDesc = cfg.phoneDisplay
-            ? 'Get free roofing quotes in Oklahoma City from trusted local roofers via ' + cfg.businessName + '. Call ' + cfg.phoneDisplay + ' today.'
-            : 'Get free roofing quotes in Oklahoma City from trusted local roofers via ' + cfg.businessName + '. Request your free quote today.';
+          var seoDesc = 'Get free roofing quotes in Oklahoma City from trusted local roofers via ' + cfg.businessName + '. Request your free quote online.';
 
           var metaDesc = document.querySelector('meta[name="description"]');
           if (metaDesc) {
@@ -2961,28 +2929,6 @@
           accentSpan.textContent = cfg.logoAccent;
           logoEl.appendChild(accentSpan);
           logoEl.appendChild(document.createTextNode('\u00A0' + cfg.logoSuffix));
-        }
-
-        if (cfg.phoneHref && cfg.phoneDisplay) {
-          var headerCall = document.querySelector('[data-config-header-call]');
-          if (headerCall) {
-            headerCall.setAttribute('href', cfg.phoneHref);
-            var extraSpan = headerCall.querySelector('.call-number-extra');
-            if (extraSpan) {
-              extraSpan.textContent = ' Now: ' + cfg.phoneDisplay;
-            }
-          }
-          document.querySelectorAll('[data-config-phone-btn]').forEach(function (el) {
-            el.setAttribute('href', cfg.phoneHref);
-            el.textContent = '📞 ' + cfg.phoneDisplay;
-          });
-          document.querySelectorAll('[data-config-phone-link]').forEach(function (el) {
-            el.setAttribute('href', cfg.phoneHref);
-            el.textContent = cfg.phoneDisplay;
-          });
-          document.querySelectorAll('[data-config-phone-href]').forEach(function (el) {
-            el.setAttribute('href', cfg.phoneHref);
-          });
         }
 
         if (cfg.email) {
@@ -3180,18 +3126,18 @@
                 window.dataLayer = window.dataLayer || [];
                 window.dataLayer.push({ event: "quote_form_submit" });
                 successBanner.classList.remove('is-error');
-                successBanner.textContent = "✅ Thanks, we'll call you soon!";
+                successBanner.textContent = "✅ Thanks, we'll be in touch shortly.";
                 successBanner.classList.add('visible');
                 quoteForm.reset();
               } else {
                 successBanner.classList.add('is-error');
-                successBanner.textContent = 'Something went wrong. Please call us at [YOUR PHONE, e.g. (405) 555-0142].';
+                successBanner.textContent = 'Something went wrong. Please try again or email us directly.';
                 successBanner.classList.add('visible');
               }
             })
             .catch(function () {
               successBanner.classList.add('is-error');
-              successBanner.textContent = 'Something went wrong. Please call us at [YOUR PHONE, e.g. (405) 555-0142].';
+              successBanner.textContent = 'Something went wrong. Please try again or email us directly.';
               successBanner.classList.add('visible');
             })
             .finally(function () {
@@ -3202,14 +3148,6 @@
             });
         });
       }
-
-      document.addEventListener('click', function (e) {
-        var phoneLink = e.target && e.target.closest ? e.target.closest('a[href^="tel:"]') : null;
-        if (phoneLink) {
-          window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({ event: "call_click" });
-        }
-      });
 
       // 6. Gallery Before & After Lightbox Preview
       var galleryTriggers = Array.prototype.slice.call(document.querySelectorAll('#gallery .photo-slot'));
